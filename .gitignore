@@ -37,3 +37,4 @@ logs/
 .env.local
 application-local.properties
 application-local.yml
+.fake
