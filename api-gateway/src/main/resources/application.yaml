@@ -1,3 +1,63 @@
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: ms-auth
+          uri: lb://ms-auth
+          predicates:
+            - Path=/auth/**
+
+        - id: ms-users
+          uri: lb://ms-users
+          predicates:
+            - Path=/users/**,/stores/**
+
+        - id: ms-catalog
+          uri: lb://ms-catalog
+          predicates:
+            - Path=/catalog/**
+
+        - id: ms-listings
+          uri: lb://ms-listings
+          predicates:
+            - Path=/listings/**
+
+        - id: ms-orders
+          uri: lb://ms-orders
+          predicates:
+            - Path=/orders/**
+
+        - id: ms-payments
+          uri: lb://ms-payments
+          predicates:
+            - Path=/payments/**
+
+        - id: ms-transactions
+          uri: lb://ms-transactions
+          predicates:
+            - Path=/transactions/**
+
+        - id: ms-reviews
+          uri: lb://ms-reviews
+          predicates:
+            - Path=/reviews/**
+
+        - id: ms-notifications
+          uri: lb://ms-notifications
+          predicates:
+            - Path=/notifications/**
+
+        - id: ms-reports
+          uri: lb://ms-reports
+          predicates:
+            - Path=/reports/**
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
