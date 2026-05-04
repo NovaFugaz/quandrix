@@ -15,5 +15,4 @@ public class UserProfileRequest {
     @NotBlank(message = "El nombre es obligatorio")
     private String displayName;
 
-    private String avatarUrl;
 }

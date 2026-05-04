@@ -10,6 +10,5 @@ public class UserProfileResponse {
     private Long id;
     private Long userId;
     private String displayName;
-    private String avatarUrl;
     private LocalDateTime createdAt;
 }

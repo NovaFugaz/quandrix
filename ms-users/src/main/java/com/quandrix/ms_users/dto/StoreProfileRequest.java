@@ -17,5 +17,4 @@ public class StoreProfileRequest {
 
     private String location;
     private String description;
-    private String avatarUrl;
 }

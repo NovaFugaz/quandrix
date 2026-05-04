@@ -10,8 +10,5 @@ public class StoreProfileResponse {
     private Long id;
     private Long userId;
     private String storeName;
-    private String location;
-    private String description;
-    private String avatarUrl;
     private LocalDateTime createdAt;
 }
