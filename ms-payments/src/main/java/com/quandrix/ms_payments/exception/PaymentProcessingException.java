@@ -1,0 +1,7 @@
+package com.quandrix.ms_payments.exception;
+
+public class PaymentProcessingException extends RuntimeException {
+    public PaymentProcessingException(String message) {
+        super(message);
+    }
+}
