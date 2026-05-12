@@ -1,0 +1,18 @@
+package com.quandrix.ms_transactions.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Getter
+@AllArgsConstructor
+public class TransactionResponse {
+    private Long id;
+    private Long orderId;
+    private Long buyerId;
+    private Long sellerId;
+    private String scryfallId;
+    private BigDecimal amount;
+    private LocalDateTime completedAt;
+}
