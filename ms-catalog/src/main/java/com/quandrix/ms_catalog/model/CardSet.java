@@ -1,4 +1,4 @@
-package com.quandrix.ms_catalog.model;
+package com.quandrix.ms_catalog.Model;
 
 import java.util.List;
 

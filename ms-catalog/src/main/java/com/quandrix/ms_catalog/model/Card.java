@@ -1,4 +1,4 @@
-package com.quandrix.ms_catalog.model;
+package com.quandrix.ms_catalog.Model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
