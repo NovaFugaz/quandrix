@@ -105,6 +105,52 @@ public class CatalogService {
         return card;
     }
 
+    public CardResponse findByNameAndSet(String name, String setCode) {
+    log.info("Buscando carta name={} setCode={}", name, setCode);
+
+    // Busca localmente primero
+    List<Card> local = cardRepository.searchByName(name);
+
+    if (!local.isEmpty()) {
+        // Si hay setCode, filtra por él
+        if (setCode != null && !setCode.isBlank()) {
+            return local.stream()
+                    .filter(c -> setCode.equalsIgnoreCase(c.getSetCode()))
+                    .findFirst()
+                    .map(this::toResponse)
+                    .orElseGet(() -> fetchFromScryfallByNameAndSet(name, setCode));
+        }
+        // Sin setCode devuelve la primera coincidencia
+        return toResponse(local.get(0));
+    }
+
+    return fetchFromScryfallByNameAndSet(name, setCode);
+}
+
+private CardResponse fetchFromScryfallByNameAndSet(String name, String setCode) {
+    List<ScryfallCardDto> results = scryfallClient.searchByName(name);
+
+    if (results.isEmpty()) {
+        throw new CardNotFoundException(name);
+    }
+
+    ScryfallCardDto match;
+    if (setCode != null && !setCode.isBlank()) {
+        match = results.stream()
+                .filter(dto -> setCode.equalsIgnoreCase(dto.getSetCode()))
+                .findFirst()
+                .orElseThrow(() -> new CardNotFoundException(
+                        name + " en el set " + setCode));
+    } else {
+        match = results.get(0);
+    }
+
+    persistSetIfAbsent(match);
+    Card saved = cardRepository.findById(match.getId())
+            .orElseGet(() -> cardRepository.save(toEntity(match)));
+    return toResponse(saved);
+}
+
     private CardResponse toResponse(Card card) {
         return new CardResponse(
                 card.getScryfallId(),

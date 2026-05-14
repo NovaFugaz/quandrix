@@ -1,6 +1,7 @@
 package com.quandrix.ms_payments.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,8 +16,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PaymentProcessingException.class)
     public ResponseEntity<Map<String, String>> handleProcessing(
             PaymentProcessingException ex) {
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(Map.of("error", ex.getMessage()));
+        return ResponseEntity.status(HttpStatusCode.valueOf(422))
+        .body(Map.of("error", ex.getMessage()));
     }
 
     @ExceptionHandler(PaymentNotFoundException.class)

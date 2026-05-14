@@ -3,7 +3,6 @@ package com.quandrix.ms_listings.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -26,8 +25,8 @@ public class Listing {
     @Column(nullable = false)
     private CardCondition condition;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    @Column(nullable = false)
+    private Long price;
 
     @Column(nullable = false)
     private Integer quantity;

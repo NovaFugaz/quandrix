@@ -3,7 +3,6 @@ package com.quandrix.ms_listings.dto;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -12,15 +11,18 @@ public class ListingRequest {
     @NotNull(message = "El sellerId es obligatorio")
     private Long sellerId;
 
-    @NotBlank(message = "El scryfallId es obligatorio")
-    private String scryfallId;
+    // El usuario proporciona nombre y set en lugar de scryfallId
+    @NotBlank(message = "El nombre de la carta es obligatorio")
+    private String cardName;
+
+    // Opcional — si no se provee toma la primera coincidencia
+    private String setCode;
 
     @NotNull(message = "La condición es obligatoria")
     private String condition;
 
-    @NotNull(message = "El precio es obligatorio")
-    @DecimalMin(value = "0.01", message = "El precio debe ser mayor a 0")
-    private BigDecimal price;
+    @Min(value = 1, message = "El precio mínimo es $1")
+    private Long price;
 
     @NotNull(message = "La cantidad es obligatoria")
     @Min(value = 1, message = "La cantidad mínima es 1")

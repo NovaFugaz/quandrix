@@ -2,6 +2,7 @@ package com.quandrix.ms_listings.service;
 
 import com.quandrix.ms_listings.client.CatalogClient;
 import com.quandrix.ms_listings.client.UserClient;
+import com.quandrix.ms_listings.dto.CardResponse;
 import com.quandrix.ms_listings.dto.ListingRequest;
 import com.quandrix.ms_listings.dto.ListingResponse;
 import com.quandrix.ms_listings.exception.InvalidListingException;
@@ -35,49 +36,53 @@ public class ListingService {
         this.userClient = userClient;
     }
 
-    public ListingResponse create(ListingRequest request) {
-        log.info("Creando listing para sellerId={} scryfallId={}", 
-            request.getSellerId(), request.getScryfallId());
+public ListingResponse create(ListingRequest request) {
+    log.info("Creando listing para sellerId={} cardName='{}'",
+            request.getSellerId(), request.getCardName());
 
-        // Valida que el vendedor existe en ms-users
-        try {
-            userClient.getUser(request.getSellerId());
-        } catch (Exception e) {
-            log.warn("Vendedor no encontrado: {}", request.getSellerId());
-            throw new InvalidListingException(
-                "El vendedor con id " + request.getSellerId() + " no existe");
-        }
-
-        // Valida que la carta existe en ms-catalog
-        try {
-            catalogClient.getCard(request.getScryfallId());
-        } catch (Exception e) {
-            log.warn("Carta no encontrada en catalog: {}", request.getScryfallId());
-            throw new InvalidListingException(
-                "La carta con id " + request.getScryfallId() + " no existe en el catálogo");
-        }
-
-        // Convierte el string de condición al enum
-        CardCondition condition;
-        try {
-            condition = CardCondition.valueOf(request.getCondition().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new InvalidListingException(
-                "Condición inválida: " + request.getCondition() + 
-                ". Valores válidos: MINT, NEAR_MINT, EXCELLENT, GOOD, PLAYED");
-        }
-
-        Listing listing = new Listing();
-        listing.setSellerId(request.getSellerId());
-        listing.setScryfallId(request.getScryfallId());
-        listing.setCondition(condition);
-        listing.setPrice(request.getPrice());
-        listing.setQuantity(request.getQuantity());
-
-        Listing saved = listingRepository.save(listing);
-        log.info("Listing creado exitosamente con id={}", saved.getId());
-        return toResponse(saved);
+    // Valida vendedor
+    try {
+        userClient.getUser(request.getSellerId());
+    } catch (Exception e) {
+        log.warn("Vendedor no encontrado: {}", request.getSellerId());
+        throw new InvalidListingException(
+            "El vendedor con id " + request.getSellerId() + " no existe");
     }
+
+    // Resuelve el scryfallId por nombre y set
+    CardResponse card;
+    try {
+        card = catalogClient.findByNameAndSet(
+                request.getCardName(), request.getSetCode());
+    } catch (Exception e) {
+        log.warn("Carta no encontrada: name='{}' set='{}'",
+                request.getCardName(), request.getSetCode());
+        throw new InvalidListingException(
+            "No se encontró la carta '" + request.getCardName() + "'" +
+            (request.getSetCode() != null ? " en el set " + request.getSetCode() : ""));
+    }
+
+    log.info("Carta resuelta: {} ({})", card.getName(), card.getScryfallId());
+
+    CardCondition condition;
+    try {
+        condition = CardCondition.valueOf(request.getCondition().toUpperCase());
+    } catch (IllegalArgumentException e) {
+        throw new InvalidListingException("Condición inválida: " + request.getCondition());
+    }
+
+    Listing listing = new Listing();
+    listing.setSellerId(request.getSellerId());
+    listing.setScryfallId(card.getScryfallId());
+    listing.setCondition(condition);
+    listing.setPrice(request.getPrice());
+    listing.setQuantity(request.getQuantity());
+
+    Listing saved = listingRepository.save(listing);
+    log.info("Listing creado id={} carta='{}' scryfallId={}",
+            saved.getId(), card.getName(), saved.getScryfallId());
+    return toResponse(saved);
+}
 
     public ListingResponse getById(Long id) {
         log.info("Buscando listing id={}", id);
