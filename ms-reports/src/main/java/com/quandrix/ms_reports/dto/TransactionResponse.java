@@ -1,6 +1,5 @@
 package com.quandrix.ms_reports.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +15,6 @@ public class TransactionResponse {
     private Long buyerId;
     private Long sellerId;
     private String scryfallId;
-    private BigDecimal amount;
+    private Long amount;
     private LocalDateTime completedAt;
 }

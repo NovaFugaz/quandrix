@@ -1,7 +1,5 @@
 package com.quandrix.ms_reports.dto;
 
-import java.math.BigDecimal;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,5 +8,5 @@ import lombok.Getter;
 public class TopSellerResponse {
     private Long sellerId;
     private long totalSales;
-    private BigDecimal totalRevenue;
+    private Long totalRevenue;
 }

@@ -4,7 +4,6 @@ import com.quandrix.ms_payments.model.PaymentMethod;
 import com.quandrix.ms_payments.model.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 public class PaymentResponse {
     private Long id;
     private Long orderId;
-    private BigDecimal amount;
+    private Long amount;
     private PaymentMethod method;
     private PaymentStatus status;
     private LocalDateTime processedAt;

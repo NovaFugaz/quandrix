@@ -10,8 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -42,17 +41,17 @@ public class ReportService {
 
         if (transactions.isEmpty()) {
             log.info("Sin transacciones en el período indicado");
-            return new SalesReportResponse(from, to, 0, BigDecimal.ZERO, BigDecimal.ZERO);
+            return new SalesReportResponse(from, to, 0, 0L, 0L);
         }
 
-        BigDecimal totalAmount = transactions.stream()
-                .map(TransactionResponse::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        Long totalAmount = transactions.stream()
+                .mapToLong(TransactionResponse::getAmount)
+                .sum();
 
-        BigDecimal averageAmount = totalAmount
-                .divide(BigDecimal.valueOf(transactions.size()), 2, RoundingMode.HALF_UP);
+        Long averageAmount = Math.round(
+                (double) totalAmount / transactions.size());
 
-        log.info("Reporte generado: {} transacciones, total={}", 
+        log.info("Reporte generado: {} transacciones, total=${}",
                 transactions.size(), totalAmount);
         return new SalesReportResponse(from, to, transactions.size(),
                 totalAmount, averageAmount);
@@ -69,7 +68,6 @@ public class ReportService {
             throw new ReportGenerationException(e.getMessage());
         }
 
-        // Agrupar por sellerId y calcular totales
         Map<Long, List<TransactionResponse>> bySeller = transactions.stream()
                 .collect(Collectors.groupingBy(TransactionResponse::getSellerId));
 
@@ -77,9 +75,9 @@ public class ReportService {
                 .map(entry -> {
                     Long sellerId = entry.getKey();
                     List<TransactionResponse> sellerTx = entry.getValue();
-                    BigDecimal revenue = sellerTx.stream()
-                            .map(TransactionResponse::getAmount)
-                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                    Long revenue = sellerTx.stream()
+                            .mapToLong(TransactionResponse::getAmount)
+                            .sum();
                     return new TopSellerResponse(sellerId, sellerTx.size(), revenue);
                 })
                 .sorted(Comparator.comparingLong(TopSellerResponse::getTotalSales)
@@ -99,7 +97,6 @@ public class ReportService {
             throw new ReportGenerationException(e.getMessage());
         }
 
-        // Agrupar por scryfallId y contar ventas
         Map<String, Long> byCard = transactions.stream()
                 .collect(Collectors.groupingBy(
                         TransactionResponse::getScryfallId,
@@ -125,16 +122,16 @@ public class ReportService {
         }
 
         if (transactions.isEmpty()) {
-            return new SalesReportResponse(null, null, 0,
-                    BigDecimal.ZERO, BigDecimal.ZERO);
+            log.info("Sin transacciones registradas aún");
+            return new SalesReportResponse(null, null, 0, 0L, 0L);
         }
 
-        BigDecimal totalAmount = transactions.stream()
-                .map(TransactionResponse::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        Long totalAmount = transactions.stream()
+                .mapToLong(TransactionResponse::getAmount)
+                .sum();
 
-        BigDecimal averageAmount = totalAmount
-                .divide(BigDecimal.valueOf(transactions.size()), 2, RoundingMode.HALF_UP);
+        Long averageAmount = Math.round(
+                (double) totalAmount / transactions.size());
 
         LocalDateTime oldest = transactions.stream()
                 .map(TransactionResponse::getCompletedAt)
@@ -144,7 +141,8 @@ public class ReportService {
                 .map(TransactionResponse::getCompletedAt)
                 .max(Comparator.naturalOrder()).orElse(null);
 
-        log.info("Resumen general: {} transacciones totales", transactions.size());
+        log.info("Resumen general: {} transacciones, total=${}",
+                transactions.size(), totalAmount);
         return new SalesReportResponse(oldest, newest, transactions.size(),
                 totalAmount, averageAmount);
     }

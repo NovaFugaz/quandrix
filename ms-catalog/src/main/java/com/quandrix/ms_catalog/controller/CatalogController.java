@@ -38,4 +38,12 @@ public class CatalogController {
         log.info("GET /catalog/sets");
         return ResponseEntity.ok(catalogService.getAllSets());
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<CardResponse> findByNameAndSet(
+        @RequestParam String name,
+        @RequestParam(required = false) String setCode) {
+    log.info("GET /catalog/find name={} setCode={}", name, setCode);
+    return ResponseEntity.ok(catalogService.findByNameAndSet(name, setCode));
+}
 }
