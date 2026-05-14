@@ -1,13 +1,13 @@
-package com.quandrix.ms_catalog.Service;
+package com.quandrix.ms_catalog.service;
 
 import com.quandrix.ms_catalog.client.ScryfallClient;
 import com.quandrix.ms_catalog.dto.CardResponse;
 import com.quandrix.ms_catalog.dto.ScryfallCardDto;
 import com.quandrix.ms_catalog.exception.CardNotFoundException;
-import com.quandrix.ms_catalog.Model.Card;
-import com.quandrix.ms_catalog.Model.CardSet;
-import com.quandrix.ms_catalog.Repository.CardRepository;
-import com.quandrix.ms_catalog.Repository.CardSetRepository;
+import com.quandrix.ms_catalog.model.Card;
+import com.quandrix.ms_catalog.model.CardSet;
+import com.quandrix.ms_catalog.repository.CardRepository;
+import com.quandrix.ms_catalog.repository.CardSetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
