@@ -33,7 +33,7 @@ public class Review {
     private Long sellerId;
 
     @Min(1)
-    @Max(2)
+    @Max(5)
     @Column(nullable = false)
     private Integer rating;
 
