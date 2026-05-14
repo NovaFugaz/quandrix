@@ -43,15 +43,15 @@ The system is divided in the following list of decoupled microservices:
 
 ## Testing cycle
 
-POST /auth/register          → register user
-POST /auth/login             → get JWT
-GET  /catalog/search?name=   → search card
-GET  /catalog/{scryfallId}   → get card via ID
-POST /listings               → add listing
-POST /orders                 → buying and item
-GET  /payments/order/{id}    → verify payment
-POST /reviews                → add review
-GET  /reports/summary        → see reports (ADMIN)
+- POST /auth/register          → register user
+- POST /auth/login             → get JWT
+- GET  /catalog/search?name=   → search card
+- GET  /catalog/{scryfallId}   → get card via ID
+- POST /listings               → add listing
+- POST /orders                 → buying and item
+- GET  /payments/order/{id}    → verify payment
+- POST /reviews                → add review
+- GET  /reports/summary        → see reports (ADMIN)
 
 ## Licence
 
@@ -104,16 +104,15 @@ El sistema está dividido en microservicios desacoplados descritos en la siguien
 - Docker + Docker Compose
 
 ### Flujo principal de prueba
-
-POST /auth/register          → registrar usuario
-POST /auth/login             → obtener JWT
-GET  /catalog/search?name=   → buscar carta
-GET  /catalog/{scryfallId}   → obtener carta por ID
-POST /listings               → publicar listing
-POST /orders                 → crear orden de compra
-GET  /payments/order/{id}    → verificar pago
-POST /reviews                → dejar reseña
-GET  /reports/summary        → ver resumen (ADMIN)
+- POST /auth/register          → registrar usuario
+- POST /auth/login             → obtener JWT
+- GET  /catalog/search?name=   → buscar carta
+- GET  /catalog/{scryfallId}   → obtener carta por ID
+- POST /listings               → publicar listing
+- POST /orders                 → crear orden de compra
+- GET  /payments/order/{id}    → verificar pago
+- POST /reviews                → dejar reseña
+- GET  /reports/summary        → ver resumen (ADMIN)
 
 ### Licencia
 
