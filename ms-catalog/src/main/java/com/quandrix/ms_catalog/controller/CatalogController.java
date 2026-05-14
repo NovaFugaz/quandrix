@@ -1,7 +1,7 @@
-package com.quandrix.ms_catalog.Controller;
+package com.quandrix.ms_catalog.controller;
 
 import com.quandrix.ms_catalog.dto.CardResponse;
-import com.quandrix.ms_catalog.Service.CatalogService;
+import com.quandrix.ms_catalog.service.CatalogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

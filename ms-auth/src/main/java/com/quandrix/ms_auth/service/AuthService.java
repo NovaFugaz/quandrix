@@ -2,7 +2,8 @@ package com.quandrix.ms_auth.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.quandrix.ms_auth.dto.LoginResponse;
 import com.quandrix.ms_auth.dto.RegisterRequest;
 import com.quandrix.ms_auth.dto.TokenValidationResponse;
@@ -15,6 +16,7 @@ import com.quandrix.ms_auth.repository.UserRepository;
 @Service
 public class AuthService {
     
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -27,42 +29,60 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
-    public void register(RegisterRequest request){
-        if (userRepository.existsByEmail(request.getEmail())){
+public void register(RegisterRequest request) {
+        log.info("Intento de registro para email: {}", request.getEmail());
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            log.warn("Registro fallido - email ya existe: {}", request.getEmail());
             throw new UserAlreadyExistsException(request.getEmail());
         }
 
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setPasswordHash(passwordEncoder.encode((request.getPassword())));
-        user.setRole((Role.valueOf(request.getRole().toUpperCase())));
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+
+        try {
+            user.setRole(Role.valueOf(request.getRole().toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            log.warn("Rol inválido recibido: {}", request.getRole());
+            throw new InvalidCredentialsException();
+        }
 
         userRepository.save(user);
+        log.info("Usuario registrado exitosamente con rol={}: {}", 
+                user.getRole(), user.getEmail());
     }
 
-    public LoginResponse login(String email, String password){
+    public LoginResponse login(String email, String password) {
+        log.info("Intento de login para: {}", email);
+
         User user = userRepository.findByEmail(email)
-        .orElseThrow(InvalidCredentialsException::new);
-    
-    if (!passwordEncoder.matches(password, user.getPasswordHash())){
-        throw new InvalidCredentialsException(); 
+                .orElseThrow(() -> {
+                    log.warn("Login fallido - usuario no encontrado: {}", email);
+                    return new InvalidCredentialsException();
+                });
+
+        if (!passwordEncoder.matches(password, user.getPasswordHash())) {
+            log.warn("Login fallido - contraseña incorrecta para: {}", email);
+            throw new InvalidCredentialsException();
+        }
+
+        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
+        log.info("Login exitoso para: {} con rol: {}", email, user.getRole());
+        return new LoginResponse(token, user.getRole().name(), user.getEmail());
     }
 
-    String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
-    return new LoginResponse(token, user.getRole().name(), user.getEmail());
+    public TokenValidationResponse validateToken(String token) {
+        log.info("Validando token");
 
-    }
-
-    public TokenValidationResponse validateToken(String token){
-        if (!jwtService.isTokenValid(token)){
+        if (!jwtService.isTokenValid(token)) {
+            log.warn("Token inválido o expirado");
             return new TokenValidationResponse(null, null, false);
         }
-        return new TokenValidationResponse(
-            jwtService.extractEmail(token), 
-            jwtService.extractRole(token),
-            true
-        );
+
+        String email = jwtService.extractEmail(token);
+        String role = jwtService.extractRole(token);
+        log.info("Token válido para email={} rol={}", email, role);
+        return new TokenValidationResponse(email, role, true);
     }
-
-
 }
