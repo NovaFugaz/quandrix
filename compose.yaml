@@ -1,0 +1,215 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: quandrix-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: quandrix123
+      MYSQL_USER: quandrix
+      MYSQL_PASSWORD: quandrix123
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # ← Asegura esta indentación
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pquandrix123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: quandrix-eureka
+    ports:
+      - "8761:8761"
+    # No depende de mysql, solo necesita iniciarse primero
+    environment:
+      - SPRING_APPLICATION_NAME=eureka-server
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: quandrix-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      eureka-server:
+        condition: service_started
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-auth:
+    build: ./ms-auth
+    container_name: quandrix-auth
+    ports:
+      - "8081:8081"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_auth?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JWT_SECRET=d8JAM72TEgISjAePoNlVVLzhjr3JcqjwRxBebr6Ktk8
+      - JWT_EXPIRATION=86400000
+
+  ms-users:
+    build: ./ms-users
+    container_name: quandrix-users
+    ports:
+      - "8082:8082"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      ms-auth:
+        condition: service_started    # Opcional pero recomendado
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_users?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-catalog:
+    build: ./ms-catalog
+    container_name: quandrix-catalog
+    ports:
+      - "8083:8083"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_catalog?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-listings:
+    build: ./ms-listings
+    container_name: quandrix-listings
+    ports:
+      - "8084:8084"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      ms-catalog:
+        condition: service_started
+      ms-users:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_listings?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-payments:
+    build: ./ms-payments
+    container_name: quandrix-payments
+    ports:
+      - "8086:8086"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_payments?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-orders:
+    build: ./ms-orders
+    container_name: quandrix-orders
+    ports:
+      - "8085:8085"
+    depends_on:
+      eureka-server:
+        condition: service_started
+      ms-listings:
+        condition: service_started
+      ms-payments:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_orders?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-transactions:
+    build: ./ms-transactions
+    container_name: quandrix-transactions
+    ports:
+      - "8090:8090"                      # Corregido: puerto 8090 según tabla
+    depends_on:
+      eureka-server:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_transactions?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-reviews:
+    build: ./ms-reviews
+    container_name: quandrix-reviews
+    ports:
+      - "8087:8087"                      # Correcto: 8087
+    depends_on:
+      eureka-server:
+        condition: service_started
+      ms-transactions:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_reviews?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-notifications:
+    build: ./ms-notifications
+    container_name: quandrix-notifications
+    ports:
+      - "8088:8088"                      # Corregido: 8088 (antes 8089)
+    depends_on:
+      eureka-server:
+        condition: service_started
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/quandrix_notifications?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=quandrix
+      - SPRING_DATASOURCE_PASSWORD=quandrix123
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+  ms-reports:
+    build: ./ms-reports
+    container_name: quandrix-reports
+    ports:
+      - "8089:8089"                      # Corregido: 8089 (antes 8090)
+    depends_on:
+      eureka-server:
+        condition: service_started
+      ms-transactions:
+        condition: service_started
+      ms-users:
+        condition: service_started
+    # Sin base de datos directa (consume datos de otros servicios)
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+
+volumes:
+  mysql_data:

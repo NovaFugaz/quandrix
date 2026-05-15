@@ -20,6 +20,8 @@ public class JwtService {
     }
 
     public String generateToken(String email, String role) {
+        log.info("JWT secret length={}",
+            jwtConfig.getSecret().length());
         log.info("Generando token para email={} rol={}", email, role);
         return Jwts.builder()
                 .subject(email)
