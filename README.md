@@ -18,12 +18,22 @@ The system is divided in the following list of decoupled microservices:
 | ms-listings | 8084 | Listing of singles currently at sale |
 | ms-orders | 8085 | Buying orders process |
 | ms-payments | 8086 | Payment process |
-| ms-transactions | 8087 | Read-only transaction history |
-| ms-reviews | 8088 | Reviews and reputation of sellers |
-| ms-notifications | 8089 | System notifications |
-| ms-reports | 8090 | Reports and stats (ADMIN only) |
+| ms-reviews | 8087 | Reviews and reputation of sellers |
+| ms-notifications | 8088 | System notifications |
+| ms-reports | 8089 | Reports and stats (ADMIN only) |
+| ms-transactions | 8090 | Read-only transaction history |
 
-## Roles
+### Cómo levantar quandrix
+
+- Make sure to have docker installed and running. You may need docker buildx dependency to build it.
+- Once your ready:
+`git clone https://github.com/NovaFugaz/quandrix.git`
+`docker compose build` (you may need to run it through sudo/doas) 
+`docker compose up -d` (so it runs on background)
+- To check the health of all microservices:
+`docker ps -a` (every container should say Up)
+
+### Roles
 
 - **ADMIN**: full access, user and reports management
 - **TIENDA**: buying and selling own cards, listing management
@@ -80,10 +90,20 @@ El sistema está dividido en microservicios desacoplados descritos en la siguien
 | ms-listings | 8084 | Publicaciones de singles en venta |
 | ms-orders | 8085 | Gestión de órdenes de compra |
 | ms-payments | 8086 | Procesamiento de pagos |
-| ms-transactions | 8087 | Historial inmutable de transacciones |
-| ms-reviews | 8088 | Reseñas y reputación de vendedores |
-| ms-notifications | 8089 | Notificaciones del sistema |
-| ms-reports | 8090 | Informes y estadísticas (solo ADMIN) |
+| ms-reviews | 8087 | Reseñas y reputación de vendedores |
+| ms-notifications | 8088 | Notificaciones del sistema |
+| ms-reports | 8089 | Informes y estadísticas (solo ADMIN) |
+| ms-transactions | 8090 | Historial inmutable de transacciones |
+
+### Cómo levantar quandrix
+
+- Asegúrate de tener Docker instalado y su servicio corriendo, además de la dependencia necesaria para compilar, buildx.
+- Una vez esté listo eso
+`git clone https://github.com/NovaFugaz/quandrix.git`
+`docker compose build` (puede requerir elevación de privilegios en Linux) 
+`docker compose up -d` (para que corra en segundo plano)
+- Para revisar el estado de los servicios:
+`docker ps -a` (todo servicio debería decir Up)
 
 ### Roles
 
