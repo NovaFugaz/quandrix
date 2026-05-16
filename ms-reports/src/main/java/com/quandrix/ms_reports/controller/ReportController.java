@@ -55,7 +55,7 @@ public class ReportController {
             return ResponseEntity.ok(reportService.getTopCards(limit));
         }
 
-    @GetMapping("/sumary")
+    @GetMapping("/summary")
     public ResponseEntity<SalesReportResponse> getSumary(){
             log.info("GET /reports/summary");
             return ResponseEntity.ok(reportService.getGeneralSummary());

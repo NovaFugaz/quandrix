@@ -31,7 +31,7 @@ public class NotificationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(request));
     }
 
-    @GetMapping("/user/{userId}/Unread")
+    @GetMapping("/user/{userId}/unread")
     public ResponseEntity<Map<String, Long>> getUnread(@PathVariable Long userId){
         log.info("GET /notifications/user/{}/unread/count", userId);
         return ResponseEntity.ok(Map.of("unread", notificationService.countUnread(userId)));
