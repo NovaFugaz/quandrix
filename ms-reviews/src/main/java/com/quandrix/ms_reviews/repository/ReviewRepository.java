@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.quandrix.ms_reviews.model.Review;
 
-import feign.Param;
+import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface ReviewRepository extends JpaRepository <Review, Long>{
