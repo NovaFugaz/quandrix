@@ -21,10 +21,13 @@ public class ListingRequest {
     @NotNull(message = "La condición es obligatoria")
     private String condition;
 
-    @Min(value = 1, message = "El precio mínimo es $1")
+    @Min(value = 100, message = "El precio mínimo es $100")
+    @Positive(message = "El precio debe ser positivo")
     private Long price;
 
     @NotNull(message = "La cantidad es obligatoria")
     @Min(value = 1, message = "La cantidad mínima es 1")
+    @Max(value = 100, message = "La cantidad máxima es 100")
+    @Positive(message = "La cantidad debe ser positiva")
     private Integer quantity;
 }

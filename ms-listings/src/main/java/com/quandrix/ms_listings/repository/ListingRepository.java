@@ -17,6 +17,9 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     List<Listing> findByStatus(ListingStatus status);
 
-    List<Listing> findBySellerIdAndStatusAndCondition(
-        Long sellerId, ListingStatus status, CardCondition condition);
+    List<Listing> findBySellerIdAndStatusAndCardCondition(
+        Long sellerId, ListingStatus status, CardCondition cardCondition);
+
+    List<Listing> findBySellerIdAndScryfallIdAndCardConditionAndStatus(
+        Long sellerId, String scryfallId, CardCondition cardCondition, ListingStatus status);
 }

@@ -22,8 +22,8 @@ public class Listing {
     private String scryfallId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CardCondition condition;
+    @Column(name = "card_condition",nullable = false)
+    private CardCondition cardCondition;
 
     @Column(nullable = false)
     private Long price;
