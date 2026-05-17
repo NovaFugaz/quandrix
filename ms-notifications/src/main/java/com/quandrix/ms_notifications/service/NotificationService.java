@@ -27,7 +27,7 @@ public class NotificationService
     }
 
     public NotificationResponse create(NotificationRequest request) {
-        log.info("Creando notificación para userID={} type={}",
+        log.info("Creando notificación para userID: {} type: {}",
                 request.getUserId(), request.getType());
 
         NotificationType type;
@@ -44,38 +44,38 @@ public class NotificationService
         notification.setMessage(request.getMessage());
 
         Notification saved = notificationRepository.save(notification);
-        log.info("Notificación creada id={} para userId={}",
+        log.info("Notificación creada id: {} para userId: {}",
                 saved.getId(), saved.getUserId());
         return toResponse(saved);
     }
 
     public List<NotificationResponse> getByUser(Long userId) {
-        log.info("Obteniendo todas las notificaciones de userId={}", userId);
+        log.info("Obteniendo todas las notificaciones de userId: {}", userId);
         return notificationRepository.findByUserId(userId)
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public List<NotificationResponse> getUnreadByUser(Long userId) {
-        log.info("Obteniendo notificaciones no leidas de userId={}", userId);
+        log.info("Obteniendo notificaciones no leidas de userId: {}", userId);
         return notificationRepository.findByUserIdAndRead(userId, false).stream().map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
     public long countUnread(Long userId) {
         long count = notificationRepository.countByUserIdAndRead(userId, false);
-        log.info("Notificaciones no leídas para userId={}: {}", userId, count);
+        log.info("Notificaciones no leídas para userId: {}: {}", userId, count);
         return count;
     }
 
     public NotificationResponse markAsRead(Long id){
-        log.info("Marcando notificación id ={} como leida", id);
+        log.info("Marcando notificación id: {} como leida", id);
         Notification notification = notificationRepository.findById(id).orElseThrow(() -> {
             log.warn("Notificación no encontrada: {}", id);
             return new NotificationNotFoundException(id);
         });
 
         if (notification.isRead()){
-            log.info("Notificación id={} ya esta marcada como leida", id);
+            log.info("Notificación id: {} ya esta marcada como leida", id);
             return toResponse(notification);
         }
 
@@ -85,21 +85,21 @@ public class NotificationService
     }
 
     public void markAllAsRead(Long userId) {
-        log.info("Marcando todas las notificaciones de userId={} como leídas", userId);
+        log.info("Marcando todas las notificaciones de userId: {} como leídas", userId);
         List<Notification> unread = notificationRepository
                 .findByUserIdAndRead(userId, false);
         unread.forEach(n -> n.setRead(true));
         notificationRepository.saveAll(unread);
-        log.info("Marcadas {} notificaciones como leídas para userId={}",
+        log.info("Marcadas {} notificaciones como leídas para userId: {}",
                 unread.size(), userId);
     }
 
     public void delete(Long id) {
-        log.info("Eliminando notificación id={}", id);
+        log.info("Eliminando notificación id: {}", id);
         Notification notification = notificationRepository.findById(id)
                 .orElseThrow(() -> new NotificationNotFoundException(id));
         notificationRepository.delete(notification);
-        log.info("Notificación id={} eliminada", id);
+        log.info("Notificación id: {} eliminada", id);
     }
 
     private NotificationResponse toResponse(Notification n) {

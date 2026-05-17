@@ -72,7 +72,7 @@ public class ReviewService {
         review.setComment(request.getComment());
 
         Review saved = reviewRepository.save(review);
-        log.info("Reseña creada con id={} rating={}", saved.getId(), saved.getRating());
+        log.info("Reseña creada con id: {} rating: {}", saved.getId(), saved.getRating());
 
         // Notificar al vendedor
         try {
@@ -90,20 +90,20 @@ public class ReviewService {
     }
 
     public List<ReviewResponse> getBySeller(Long sellerId) {
-        log.info("Obteniendo reseñas del vendedor={}", sellerId);
+        log.info("Obteniendo reseñas del vendedor: {}", sellerId);
         return reviewRepository.findBySellerId(sellerId)
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     public SellerRatingResponse getSellerRating(Long sellerId) {
-        log.info("Calculando rating del vendedor={}", sellerId);
+        log.info("Calculando rating del vendedor: {}", sellerId);
         Double average = reviewRepository.calculateAverageRating(sellerId)
                 .orElse(0.0);
         Long total = reviewRepository.countBySellerId(sellerId);
 
         // Redondear a 2 decimales
         double rounded = Math.round(average * 100.0) / 100.0;
-        log.info("Rating vendedor={}: promedio={} total={}",
+        log.info("Rating vendedor: {}, promedio: {}, total: {}",
                 sellerId, rounded, total);
         return new SellerRatingResponse(sellerId, rounded, total);
     }
@@ -122,7 +122,7 @@ public class ReviewService {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new ReviewNotFoundException(id));
         reviewRepository.delete(review);
-        log.info("Reseña id={} eliminada", id);
+        log.info("Reseña id: {} eliminada", id);
     }
 
     private ReviewResponse toResponse(Review r) {

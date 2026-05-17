@@ -1,4 +1,4 @@
-package com.quandrix.ms_reports.clients;
+package com.quandrix.ms_reports.client;
 
 import com.quandrix.ms_reports.dto.TransactionResponse;
 import org.springframework.cloud.openfeign.FeignClient;
