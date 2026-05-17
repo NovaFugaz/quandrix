@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-// import java.util.List;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,25 +21,31 @@ public class NotificationController {
 
     private final NotificationService notificationService;
 
-    public NotificationController(NotificationService notificationService){
+    public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
     }
 
     @PostMapping
-    public ResponseEntity<NotificationResponse> create(@Valid @RequestBody NotificationRequest request){
+    public ResponseEntity<NotificationResponse> create(@Valid @RequestBody NotificationRequest request) {
         log.info("POST /notifications userId={}", request.getUserId());
         return ResponseEntity.status(HttpStatus.CREATED).body(notificationService.create(request));
     }
 
     @GetMapping("/user/{userId}/unread")
-    public ResponseEntity<Map<String, Long>> getUnread(@PathVariable Long userId){
+    public ResponseEntity<Map<String, Long>> getUnread(@PathVariable Long userId) {
         log.info("GET /notifications/user/{}/unread/count", userId);
         return ResponseEntity.ok(Map.of("unread", notificationService.countUnread(userId)));
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<NotificationResponse>> getByUser(@PathVariable Long userId) {
+        log.info("GET /notifications/user/{}", userId);
+        return ResponseEntity.ok(notificationService.getByUser(userId));
+    }
+
     @PatchMapping("/{id}/read")
-    public ResponseEntity<NotificationResponse> markAsRead(@PathVariable Long id){
-        log.info("PATH /notifications/{}/read", id);
+    public ResponseEntity<NotificationResponse> markAsRead(@PathVariable Long id) {
+        log.info("PATCH /notifications/{}/read", id);
         return ResponseEntity.ok(notificationService.markAsRead(id));
     }
 

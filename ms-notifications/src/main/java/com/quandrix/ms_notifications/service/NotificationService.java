@@ -7,6 +7,9 @@ import com.quandrix.ms_notifications.exception.NotificationNotFoundException;
 import com.quandrix.ms_notifications.model.Notification;
 import com.quandrix.ms_notifications.model.NotificationType;
 import com.quandrix.ms_notifications.repository.NotificationRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -57,16 +60,27 @@ public class NotificationService
 
     public List<NotificationResponse> getUnreadByUser(Long userId) {
         log.info("Obteniendo notificaciones no leidas de userId: {}", userId);
-        return notificationRepository.findByUserIdAndRead(userId, false).stream().map(this::toResponse)
+        return notificationRepository.findByUserIdAndReadFlag(userId, false).stream().map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
     public long countUnread(Long userId) {
-        long count = notificationRepository.countByUserIdAndRead(userId, false);
+        long count = notificationRepository.countByUserIdAndReadFlag(userId, false);
         log.info("Notificaciones no leídas para userId: {}: {}", userId, count);
         return count;
     }
 
+    /**
+     * Marca una notificación como leída. Si ya estaba marcada, no hace nada.
+     * @param id
+     * @return
+     *     
+     * // También podríamos agregar un endpoint para eliminar notificaciones, pero tampoco se siente necesario todavía.
+     * // El transactional es para evitar que se marquen como leídas dos veces en caso de que pase dos veces por el mismo id.
+     * // Es más un fix para evitar problemas de concurrencia que una necesidad real, pero es mejor prevenir que curar.
+     */
+     
+    @Transactional
     public NotificationResponse markAsRead(Long id){
         log.info("Marcando notificación id: {} como leida", id);
         Notification notification = notificationRepository.findById(id).orElseThrow(() -> {
@@ -74,21 +88,23 @@ public class NotificationService
             return new NotificationNotFoundException(id);
         });
 
-        if (notification.isRead()){
+        if (notification.isReadFlag()){
             log.info("Notificación id: {} ya esta marcada como leida", id);
             return toResponse(notification);
         }
 
-        notification.setRead(true);
+        notification.setReadFlag(true);
         Notification updated = notificationRepository.save(notification);
+        log.info("Notificación id: {} marcada como leida", id);
         return toResponse(updated);
     }
 
+    @Transactional
     public void markAllAsRead(Long userId) {
         log.info("Marcando todas las notificaciones de userId: {} como leídas", userId);
         List<Notification> unread = notificationRepository
-                .findByUserIdAndRead(userId, false);
-        unread.forEach(n -> n.setRead(true));
+                .findByUserIdAndReadFlag(userId, false);
+        unread.forEach(n -> n.setReadFlag(true));
         notificationRepository.saveAll(unread);
         log.info("Marcadas {} notificaciones como leídas para userId: {}",
                 unread.size(), userId);
@@ -105,7 +121,7 @@ public class NotificationService
     private NotificationResponse toResponse(Notification n) {
         return new NotificationResponse(
                 n.getId(), n.getUserId(), n.getType(),
-                n.getMessage(), n.isRead(), n.getCreatedAt()
+                n.getMessage(), n.isReadFlag(), n.getCreatedAt()
         );
     }
 }
