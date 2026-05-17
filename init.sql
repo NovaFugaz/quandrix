@@ -104,7 +104,7 @@ USE quandrix_listings;
 CREATE TABLE IF NOT EXISTS listings (
     id          BIGINT      NOT NULL AUTO_INCREMENT,
     seller_id   BIGINT      NOT NULL,           -- FK lógica a ms-users
-    scryfall_id VARCHAR(100) NOT NULL,           -- FK lógica a ms-catalog
+    scryfall_id VARCHAR(100) NOT NULL,          -- FK lógica a ms-catalog
     condition   VARCHAR(50) NOT NULL,
         -- MINT | NEAR_MINT | EXCELLENT | GOOD |
         -- LIGHT_PLAYED | HEAVILY_PLAYED | POOR | DAMAGED
