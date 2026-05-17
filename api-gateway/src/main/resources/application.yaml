@@ -63,7 +63,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
 
 management:
   endpoints:
@@ -73,10 +73,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.cloud.loadbalancer: DEBUG
-    org.springframework.web: DEBUG
-    reactor.netty: DEBUG

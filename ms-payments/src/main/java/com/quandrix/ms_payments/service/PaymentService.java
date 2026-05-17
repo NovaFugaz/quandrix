@@ -8,6 +8,9 @@ import com.quandrix.ms_payments.model.Payment;
 import com.quandrix.ms_payments.model.PaymentMethod;
 import com.quandrix.ms_payments.model.PaymentStatus;
 import com.quandrix.ms_payments.repository.PaymentRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,15 +28,21 @@ public class PaymentService {
         this.paymentRepository = paymentRepository;
     }
 
+    @Transactional
     public PaymentResponse process(PaymentRequest request) {
         log.info("Procesando pago para orderId={} monto={}",
                 request.getOrderId(), request.getAmount());
 
-        // Un mismo orderId no puede tener dos pagos
+        // Validar que no exista pago anterior
         if (paymentRepository.existsByOrderId(request.getOrderId())) {
             log.warn("Ya existe un pago para orderId={}", request.getOrderId());
             throw new PaymentProcessingException(
                     "Ya existe un pago registrado para la orden " + request.getOrderId());
+        }
+
+        if (request.getAmount() <= 0) {
+        log.warn("Monto inválido para orderId={}: {}", request.getOrderId(), request.getAmount());
+        throw new PaymentProcessingException("Monto debe ser positivo");
         }
 
         PaymentMethod method;
@@ -50,10 +59,25 @@ public class PaymentService {
         payment.setAmount(request.getAmount());
         payment.setMethod(method);
 
-        // Simulación: siempre aprueba en desarrollo
-        // En producción aquí iría la integración con pasarela real
-        payment.setStatus(PaymentStatus.APPROVED);
-        payment.setProcessedAt(LocalDateTime.now());
+        if (Boolean.TRUE.equals(request.getForceFailure())) {
+            // Opción explícita para testing y para la defensa.
+            payment.setStatus(PaymentStatus.REJECTED);
+            log.warn("Pago rechazado de forma simulada (forceFailure=true) para orderId={}", 
+                     request.getOrderId());
+        } else {
+            // Opción aleatoria 10% para simular fallos reales
+            boolean shouldReject = System.currentTimeMillis() % 10 == 0;
+            payment.setStatus(shouldReject ? PaymentStatus.REJECTED : PaymentStatus.APPROVED);
+            
+            if (shouldReject) {
+                log.warn("Pago rechazado aleatoriamente (10%) para orderId={}", 
+                 request.getOrderId());
+            }
+        }
+
+        if (payment.getStatus() == PaymentStatus.APPROVED) {
+            payment.setProcessedAt(LocalDateTime.now());
+        }
 
         Payment saved = paymentRepository.save(payment);
         log.info("Pago procesado exitosamente id={} status={}",
