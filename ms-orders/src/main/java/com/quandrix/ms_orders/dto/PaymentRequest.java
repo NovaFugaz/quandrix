@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class PaymentProcessRequest {
+public class PaymentRequest {
     private Long orderId;
     private Long amount;
     private String method;

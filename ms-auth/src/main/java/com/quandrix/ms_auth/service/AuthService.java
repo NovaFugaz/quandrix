@@ -13,6 +13,8 @@ import com.quandrix.ms_auth.model.Role;
 import com.quandrix.ms_auth.model.User;
 import com.quandrix.ms_auth.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class AuthService {
     
@@ -29,6 +31,7 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
+@Transactional
 public void register(RegisterRequest request) {
         log.info("Intento de registro para email: {}", request.getEmail());
 

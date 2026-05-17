@@ -6,6 +6,9 @@ import com.quandrix.ms_orders.exception.*;
 import com.quandrix.ms_orders.model.Order;
 import com.quandrix.ms_orders.model.OrderStatus;
 import com.quandrix.ms_orders.repository.OrderRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,25 @@ public class OrderService {
         this.notificationClient = notificationClient;
     }
 
+    /**
+     * Crea una nueva orden para un listing específico.
+     * Se usa @Transactional para asegurar que la creación de la orden, el procesamiento del pago y la actualización del listing sean atómicos.
+     * Es decir, si alguna de las operaciones falla, toda la transacción se revertirá para mantener la consistencia de los datos.
+     * El flujo general es:
+     * 1. Validar que el listing exista y esté disponible.
+     * 2. Crear la orden en estado PENDING.
+     * 3. Procesar el pago a través del PaymentService.
+     * 4. Si el pago es aprobado, actualizar la orden a CONFIRMED y restar stock del listing o marcar como vendido según corresponda.
+     * 5. Registrar la transacción en el TransactionService.
+     * 6. Enviar notificaciones al comprador y al vendedor.
+     * 7. Finalmente, marcar la orden como COMPLETED. 
+     * Si en cualquier paso ocurre un error, se lanzará una excepción y la transacción se revertirá, dejando el sistema en un estado consistente.
+     *   
+     * 
+     * @param request La solicitud de creación de orden.
+     * @return La respuesta con la orden creada.
+     */
+    @Transactional
     public OrderResponse create(OrderRequest request) {
         log.info("Iniciando creación de orden: buyerId={} listingId={}",
                 request.getBuyerId(), request.getListingId());
@@ -50,11 +72,18 @@ public class OrderService {
                     "El listing " + request.getListingId() + " no existe");
         }
 
+        // Validar que el listing esté activo
         if (!"ACTIVE".equals(listing.getStatus())) {
             log.warn("Listing {} no está activo, status={}",
                     request.getListingId(), listing.getStatus());
             throw new InvalidOrderException(
                     "El listing no está disponible para compra");
+        }
+
+        // Validar que el listing tenga stock disponible
+        if (listing.getQuantity() == null || listing.getQuantity() <= 0) {
+        log.warn("Listing {} sin stock disponible", request.getListingId());
+        throw new InvalidOrderException("El listing no tiene stock disponible");
         }
 
         // Un comprador no puede comprar su propio listing
@@ -75,8 +104,10 @@ public class OrderService {
 
         // 3. Procesar el pago
         PaymentResponse payment;
+
         try {
-            payment = paymentClient.process(new PaymentProcessRequest(
+            log.info("Procesando pago");
+            payment = paymentClient.process(new PaymentRequest(
                     order.getId(),
                     order.getAmount(),
                     request.getPaymentMethod()

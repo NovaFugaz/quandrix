@@ -34,8 +34,8 @@ public class Notification {
     @Column(nullable = false, length = 500)
     private String message;
 
-    @Column(nullable = false)
-    private boolean read;
+    @Column(name = "read_flag", nullable = false)
+    private boolean readFlag;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -43,6 +43,6 @@ public class Notification {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        this.read = false;
+        this.readFlag = false;
     }
 }

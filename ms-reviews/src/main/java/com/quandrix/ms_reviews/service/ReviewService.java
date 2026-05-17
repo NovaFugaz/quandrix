@@ -6,6 +6,9 @@ import com.quandrix.ms_reviews.dto.*;
 import com.quandrix.ms_reviews.exception.*;
 import com.quandrix.ms_reviews.model.Review;
 import com.quandrix.ms_reviews.repository.ReviewRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,14 @@ public class ReviewService {
         this.notificationClient = notificationClient;
     }
 
+    @Transactional
     public ReviewResponse create(ReviewRequest request) {
+        
+        if (request.getRating() < 1 || request.getRating() > 5) {
+            log.warn("Rating fuera de rango permitido: {}", request.getRating());
+            throw new IllegalArgumentException("Rating debe estar entre 1 y 5");
+        }
+
         log.info("Creando reseña de reviewerId={} a sellerId={}",
                 request.getReviewerId(), request.getSellerId());
 
@@ -76,6 +86,7 @@ public class ReviewService {
 
         // Notificar al vendedor
         try {
+            log.info("Enviando notificación de nueva reseña a sellerId={}", request.getSellerId());
             notificationClient.send(new NotificationRequest(
                     request.getSellerId(),
                     "REVIEW_RECEIVED",

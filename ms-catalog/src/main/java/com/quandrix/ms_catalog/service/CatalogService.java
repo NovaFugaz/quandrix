@@ -8,6 +8,9 @@ import com.quandrix.ms_catalog.model.Card;
 import com.quandrix.ms_catalog.model.CardSet;
 import com.quandrix.ms_catalog.repository.CardRepository;
 import com.quandrix.ms_catalog.repository.CardSetRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,7 @@ public class CatalogService {
         this.scryfallClient = scryfallClient;
     }
 
+    @Transactional
     public CardResponse getCardById(String scryfallId) {
         return cardRepository.findById(scryfallId)
                 .map(card -> {
@@ -41,8 +45,9 @@ public class CatalogService {
                 .orElseGet(() -> {
                     log.info("Carta no encontrada localmente, consultando Scryfall: {}", scryfallId);
                     ScryfallCardDto dto = scryfallClient.getCardById(scryfallId);
-                    Card saved = cardRepository.save(toEntity(dto));
+                    // Dejo esto antes de guardar para asegurar que el set exista.
                     persistSetIfAbsent(dto);
+                    Card saved = cardRepository.save(toEntity(dto));
                     log.info("Carta persistida desde Scryfall: {}", saved.getName());
                     return toResponse(saved);
                 });
