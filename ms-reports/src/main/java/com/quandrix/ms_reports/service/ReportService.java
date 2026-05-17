@@ -1,6 +1,6 @@
 package com.quandrix.ms_reports.service;
 
-import com.quandrix.ms_reports.clients.TransactionClient;
+import com.quandrix.ms_reports.client.TransactionClient;
 import com.quandrix.ms_reports.dto.SalesReportResponse;
 import com.quandrix.ms_reports.dto.TopCardResponse;
 import com.quandrix.ms_reports.dto.TopSellerResponse;
