@@ -1,0 +1,1620 @@
+{
+  "info": {
+    "_postman_id": "11ea4690-8131-4438-8e8b-a478e37660ff",
+    "name": "Quandrix - MtG singles marketplace",
+    "description": "Colección completa de endpoints para el proyecto Quandrix. Base URL: http://localhost:8080 (API Gateway).\n\nFlujo de prueba sugerido:\n1. Auth → Register + Login\n2. Users → Crear perfiles\n3. Catalog → Buscar carta\n4. Listings → Publicar listing\n5. Orders → Crear orden (flujo completo)\n6. Reviews → Reseñar vendedor\n7. Reports → Ver estadísticas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53276657",
+    "_collection_link": "https://go.postman.co/collection/53276657-11ea4690-8131-4438-8e8b-a478e37660ff?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Auth",
+      "item": [
+        {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@quandrix.com\",\n  \"password\": \"admin123\",\n  \"role\": \"ADMIN\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/auth/register' --header 'Content-Type: application/json' --data-raw '{\n  \"email\": \"admin@quandrix.com\",\n  \"password\": \"admin123\",\n  \"role\": \"ADMIN\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Register Tienda",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"tienda123\",\n  \"role\": \"TIENDA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/auth/register' --header 'Content-Type: application/json' --data-raw '{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"tienda123\",\n  \"role\": \"TIENDA\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Register Persona",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"persona@quandrix.com\",\n  \"password\": \"persona123\",\n  \"role\": \"PERSONA\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/auth/register' --header 'Content-Type: application/json' --data-raw '{\n  \"email\": \"persona@quandrix.com\",\n  \"password\": \"persona123\",\n  \"role\": \"PERSONA\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Login Tienda",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"tienda123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/auth/login' --header 'Content-Type: application/json' --data-raw '{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"tienda123\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Login inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"wrongpass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/auth/login' --header 'Content-Type: application/json' --data-raw '{\n  \"email\": \"tienda@quandrix.com\",\n  \"password\": \"wrongpass\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/auth/validate",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "auth",
+                "validate"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/auth/validate' --header 'Authorization: Bearer {{token}}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Users",
+      "item": [
+        {
+          "name": "Create Persona Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"displayName\": \"Quandrix Persona\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/users' --header 'Content-Type: application/json' --data-raw '{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Persona\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Persona Profile Copy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Persona\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/users' --header 'Content-Type: application/json' --data-raw '{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Persona\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Store Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"storeName\": \"Quandrix Store\",\n  \"location\": \"Santiago\",\n  \"description\": \"Singles MTG en Chile\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/stores",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stores"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST --url 'http://localhost:8080/stores' --header 'Content-Type: application/json' --data '{\n  \"userId\": 2,\n  \"storeName\": \"Quandrix Store\",\n  \"location\": \"Santiago\",\n  \"description\": \"Singles MTG en Chile\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/users/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users",
+                ""
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/users/3'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/stores",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "stores"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/stores'"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"displayName\": \"Persona Actualizada\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/users/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl --request PUT --url 'http://localhost:8080/users/3' --header 'Content-Type: application/json' --data '{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Actualizada\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create User inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"Sin userId\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST --url 'http://localhost:8080/users' --header 'Content-Type: application/json' --data '{\n  \"displayName\": \"Sin userId\"\n}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Catalog",
+      "item": [
+        {
+          "name": "TODO",
+          "item": [
+            {
+              "name": "Filter By Type",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/catalog/filter?type=Creature",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "catalog",
+                    "filter"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "Creature"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/filter?type=Creature'"
+              },
+              "response": []
+            },
+            {
+              "name": "Filter By Color",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/catalog/filter?color=R",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "catalog",
+                    "filter"
+                  ],
+                  "query": [
+                    {
+                      "key": "color",
+                      "value": "R"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/filter?color=R'"
+              },
+              "response": []
+            },
+            {
+              "name": "Filter By Type and Color",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/catalog/filter?type=Creature&color=R",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "catalog",
+                    "filter"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "Creature"
+                    },
+                    {
+                      "key": "color",
+                      "value": "R"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/filter?type=Creature&color=R'"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Search Lightning Bolt (Scryfall)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/catalog/search?name=Lightning%20Bolt",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "catalog",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Lightning%20Bolt"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/search?name=Lightning%20Bolt'"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Lightning Bolt (local)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/catalog/search?name=Lightning%20Bolt",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "catalog",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Lightning%20Bolt"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/search?name=Lightning%20Bolt'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Card By Scryfall Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/catalog/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "catalog",
+                "bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd'"
+          },
+          "response": []
+        },
+        {
+          "name": "Find Card By Name and Set",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/catalog/find?name=Lightning%20Bolt&setCode=M11",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "catalog",
+                "find"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Lightning%20Bolt"
+                },
+                {
+                  "key": "setCode",
+                  "value": "M11"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/find?name=Lightning%20Bolt&setCode=M11'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/catalog/sets",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "catalog",
+                "sets"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/catalog/sets'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Listings",
+      "item": [
+        {
+          "name": "Futuro",
+          "item": [
+            {
+              "name": "Get Listings By Type",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/listings/by-type?type=Instant",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "listings",
+                    "by-type"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "Instant"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET 'http://localhost:8080/listings/by-type?type=Instant'"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Create Listing Lightning Bolt",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sellerId\": 2,\n  \"cardName\": \"Lightning Bolt\",\n  \"setCode\": \"M11\",\n  \"condition\": \"NEAR_MINT\",\n  \"price\": 3500,\n  \"quantity\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/listings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/listings' --header 'Content-Type: application/json' --data-raw '{\n  \"sellerId\": 2,\n  \"cardName\": \"Lightning Bolt\",\n  \"setCode\": \"M11\",\n  \"condition\": \"NEAR_MINT\",\n  \"price\": 3500,\n  \"quantity\": 2\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Listing Black Lotus",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sellerId\": 2,\n  \"cardName\": \"Black Lotus\",\n  \"condition\": \"MINT\",\n  \"price\": 5000000,\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/listings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/listings' --header 'Content-Type: application/json' --data-raw '{\n  \"sellerId\": 2,\n  \"cardName\": \"Black Lotus\",\n  \"condition\": \"MINT\",\n  \"price\": 5000000,\n  \"quantity\": 1\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Listings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/listings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/listings'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Listing By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/listings/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/listings/1'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Listings By Seller",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/listings/seller/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings",
+                "seller",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/listings/seller/2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Withdraw Listing",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/listings/2/withdraw?sellerId=2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings",
+                "2",
+                "withdraw"
+              ],
+              "query": [
+                {
+                  "key": "sellerId",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request PATCH 'http://localhost:8080/listings/2/withdraw?sellerId=2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Listing inválido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sellerId\": 2,\n  \"cardName\": \"Lightning Bolt\",\n  \"condition\": \"MINT\",\n  \"price\": 0,\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/listings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "listings"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/listings' --header 'Content-Type: application/json' --data-raw '{\n  \"sellerId\": 2,\n  \"cardName\": \"Lightning Bolt\",\n  \"condition\": \"MINT\",\n  \"price\": 0,\n  \"quantity\": 1\n}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Orders",
+      "item": [
+        {
+          "name": "Create Order own listing error",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyerId\": 2,\n  \"listingId\": 2,\n  \"paymentMethod\": \"CASH\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/orders' --header 'Content-Type: application/json' --data-raw '{\n  \"buyerId\": 2,\n  \"listingId\": 2,\n  \"paymentMethod\": \"CASH\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order éxito",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyerId\": 3,\n  \"listingId\": 1,\n  \"paymentMethod\": \"CASH\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/orders' --header 'Content-Type: application/json' --data-raw '{\n  \"buyerId\": 3,\n  \"listingId\": 1,\n  \"paymentMethod\": \"CREDIT_CARD\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Order By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/orders/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/orders/1'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Orders By Buyer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/orders/buyer/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders",
+                "buyer",
+                "3"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/orders/buyer/3'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Orders By Seller",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/orders/seller/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders",
+                "seller",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/orders/seller/2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Order listing vendido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buyerId\": 3,\n  \"listingId\": 1,\n  \"paymentMethod\": \"CASH\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "orders"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/orders' --header 'Content-Type: application/json' --data-raw '{\n  \"buyerId\": 3,\n  \"listingId\": 1,\n  \"paymentMethod\": \"CASH\"\n}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Payments",
+      "item": [
+        {
+          "name": "Get Payment By Order Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/payments/order/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "payments",
+                "order",
+                "1"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/payments/order/1'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7. Transactions",
+      "item": [
+        {
+          "name": "Get Transactions By Buyer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/transactions/buyer/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "transactions",
+                "buyer",
+                "3"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/transactions/buyer/3'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions By Seller",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/transactions/seller/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "transactions",
+                "seller",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/transactions/seller/2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions Admin",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/transactions/admin",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "transactions",
+                "admin"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/transactions/admin'"
+          },
+          "response": []
+        },
+        {
+          "name": "Transaction Exists Between Buyer and Seller",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/transactions/exists?buyerId=3&sellerId=2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "transactions",
+                "exists"
+              ],
+              "query": [
+                {
+                  "key": "buyerId",
+                  "value": "3"
+                },
+                {
+                  "key": "sellerId",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/transactions/exists?buyerId=3&sellerId=2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions By Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/transactions/range?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "transactions",
+                "range"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2025-01-01T00:00:00"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-12-31T23:59:59"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET 'http://localhost:8080/transactions/range?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "8. Reviews",
+      "item": [
+        {
+          "name": "Create Review valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reviewerId\": 3,\n  \"sellerId\": 2,\n  \"rating\": 5,\n  \"comment\": \"Excelente vendedor, carta en perfecto estado\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST --url 'http://localhost:8080/reviews' --header 'Content-Type: application/json' --data '{\n  \"reviewerId\": 3,\n  \"sellerId\": 2,\n  \"rating\": 5,\n  \"comment\": \"Excelente vendedor, carta en perfecto estado\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Review no transaction 403",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"reviewerId\": 1, \"sellerId\": 2, \"rating\": 1, \"comment\": \"Sin compra\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST --url 'http://localhost:8080/reviews' --header 'Content-Type: application/json' --data '{ \"reviewerId\": 1, \"sellerId\": 2, \"rating\": 1, \"comment\": \"Sin compra\" }'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Review duplicate 409",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"reviewerId\": 3, \"sellerId\": 2, \"rating\": 3, \"comment\": \"Segunda reseña\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST --url 'http://localhost:8080/reviews' --header 'Content-Type: application/json' --data '{ \"reviewerId\": 3, \"sellerId\": 2, \"rating\": 3, \"comment\": \"Segunda reseña\" }'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Reviews By Seller",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reviews/seller/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews",
+                "seller",
+                "2"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reviews/seller/2'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Seller Rating",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reviews/seller/2/rating",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reviews",
+                "seller",
+                "2",
+                "rating"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reviews/seller/2/rating'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "9. Notifications",
+      "item": [
+        {
+          "name": "Mark All Notifications As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/notifications/user/3/read-all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "notifications",
+                "user",
+                "3",
+                "read-all"
+              ]
+            },
+            "description": "Generated from cURL: curl --request PATCH --url 'http://localhost:8080/notifications/user/3/read-all'"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Notification As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/notifications/1/read",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "notifications",
+                "1",
+                "read"
+              ]
+            },
+            "description": "Generated from cURL: curl --request PATCH --url 'http://localhost:8080/notifications/1/read'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Notifications By User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/notifications/user/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "notifications",
+                "user",
+                "3"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Unread Notifications By User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/notifications/user/3/unread",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "notifications",
+                "user",
+                "3",
+                "unread"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3/unread'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Unread Notification Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/notifications/user/3/unread/count",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "notifications",
+                "user",
+                "3",
+                "unread",
+                "count"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3/unread/count'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "10. Reports",
+      "item": [
+        {
+          "name": "Get Report Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reports/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reports",
+                "summary"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reports/summary'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sales Report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reports/sales?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reports",
+                "sales"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2025-01-01T00:00:00"
+                },
+                {
+                  "key": "to",
+                  "value": "2025-12-31T23:59:59"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reports/sales?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top Sellers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reports/top-sellers?limit=5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reports",
+                "top-sellers"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reports/top-sellers?limit=5'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Top Cards",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/reports/top-cards?limit=5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "reports",
+                "top-cards"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/reports/top-cards?limit=5'"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
