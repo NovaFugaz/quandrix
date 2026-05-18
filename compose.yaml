@@ -2,13 +2,15 @@ services:
   mysql:
     image: mysql:8.0
     container_name: quandrix-mysql
+    mem_limit: 1g
+    cpus: 1
     environment:
       MYSQL_ROOT_PASSWORD: quandrix123
       MYSQL_USER: quandrix
       MYSQL_PASSWORD: quandrix123
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # ← Asegura esta indentación
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     healthcheck:
@@ -20,15 +22,19 @@ services:
   eureka-server:
     build: ./eureka-server
     container_name: quandrix-eureka
+    mem_limit: 256m
+    cpus: 0.5
     ports:
       - "8761:8761"
-    # No depende de mysql, solo necesita iniciarse primero
     environment:
       - SPRING_APPLICATION_NAME=eureka-server
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   api-gateway:
     build: ./api-gateway
     container_name: quandrix-gateway
+    mem_limit: 384m
+    cpus: 0.5
     ports:
       - "8080:8080"
     depends_on:
@@ -36,10 +42,13 @@ services:
         condition: service_started
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=60
 
   ms-auth:
     build: ./ms-auth
     container_name: quandrix-auth
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8081:8081"
     depends_on:
@@ -54,17 +63,20 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - JWT_SECRET=d8JAM72TEgISjAePoNlVVLzhjr3JcqjwRxBebr6Ktk8
       - JWT_EXPIRATION=86400000
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-users:
     build: ./ms-users
     container_name: quandrix-users
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8082:8082"
     depends_on:
       eureka-server:
         condition: service_started
       ms-auth:
-        condition: service_started    # Opcional pero recomendado
+        condition: service_started
       mysql:
         condition: service_healthy
     environment:
@@ -72,10 +84,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-catalog:
     build: ./ms-catalog
     container_name: quandrix-catalog
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8083:8083"
     depends_on:
@@ -88,10 +103,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-listings:
     build: ./ms-listings
     container_name: quandrix-listings
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8084:8084"
     depends_on:
@@ -108,10 +126,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-payments:
     build: ./ms-payments
     container_name: quandrix-payments
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8086:8086"
     depends_on:
@@ -124,10 +145,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-orders:
     build: ./ms-orders
     container_name: quandrix-orders
+    mem_limit: 512m
+    cpus: 0.5
     ports:
       - "8085:8085"
     depends_on:
@@ -144,12 +168,15 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-transactions:
     build: ./ms-transactions
     container_name: quandrix-transactions
+    mem_limit: 512m
+    cpus: 0.5
     ports:
-      - "8090:8090"                      # Corregido: puerto 8090 según tabla
+      - "8090:8090"
     depends_on:
       eureka-server:
         condition: service_started
@@ -160,12 +187,15 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-reviews:
     build: ./ms-reviews
     container_name: quandrix-reviews
+    mem_limit: 512m
+    cpus: 0.5
     ports:
-      - "8087:8087"                      # Correcto: 8087
+      - "8087:8087"
     depends_on:
       eureka-server:
         condition: service_started
@@ -178,12 +208,15 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-notifications:
     build: ./ms-notifications
     container_name: quandrix-notifications
+    mem_limit: 512m
+    cpus: 0.5
     ports:
-      - "8088:8088"                      # Corregido: 8088 (antes 8089)
+      - "8088:8088"
     depends_on:
       eureka-server:
         condition: service_started
@@ -194,12 +227,15 @@ services:
       - SPRING_DATASOURCE_USERNAME=quandrix
       - SPRING_DATASOURCE_PASSWORD=quandrix123
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-reports:
     build: ./ms-reports
     container_name: quandrix-reports
+    mem_limit: 384m
+    cpus: 0.5
     ports:
-      - "8089:8089"                      # Corregido: 8089 (antes 8090)
+      - "8089:8089"
     depends_on:
       eureka-server:
         condition: service_started
@@ -207,9 +243,9 @@ services:
         condition: service_started
       ms-users:
         condition: service_started
-    # Sin base de datos directa (consume datos de otros servicios)
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
 volumes:
   mysql_data:

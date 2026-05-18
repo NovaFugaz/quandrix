@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "11ea4690-8131-4438-8e8b-a478e37660ff",
-    "name": "Quandrix - MtG singles marketplace",
-    "description": "Colección completa de endpoints para el proyecto Quandrix. Base URL: http://localhost:8080 (API Gateway).\n\nFlujo de prueba sugerido:\n1. Auth → Register + Login\n2. Users → Crear perfiles\n3. Catalog → Buscar carta\n4. Listings → Publicar listing\n5. Orders → Crear orden (flujo completo)\n6. Reviews → Reseñar vendedor\n7. Reports → Ver estadísticas",
+    "name": "Quandrix",
+    "description": "### Quandrix - MtG singles marketplace!\n\nQuandrix - MtG singles marketplace.\n\nColección completa de endpoints para el proyecto Quandrix. \n\nBase URL: http://localhost:8080 (API Gateway).\n\nFlujo de prueba sugerido:\n\n1. Auth → Register + Login\n2. Users → Crear perfiles\n3. Catalog → Buscar carta\n4. Listings → Publicar listing\n5. Orders → Crear orden (flujo completo)\n6. Reviews → Reseñar vendedor\n7. Reports → Ver estadísticas\",\n",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "53276657",
     "_collection_link": "https://go.postman.co/collection/53276657-11ea4690-8131-4438-8e8b-a478e37660ff?source=collection_link"
@@ -224,6 +224,10 @@
       "name": "2. Users",
       "item": [
         {
+          "name": "TODO",
+          "item": []
+        },
+        {
           "name": "Create Persona Profile",
           "request": {
             "method": "POST",
@@ -259,7 +263,7 @@
           "response": []
         },
         {
-          "name": "Create Persona Profile Copy",
+          "name": "Create Persona Profile 2",
           "request": {
             "method": "POST",
             "header": [
@@ -271,7 +275,42 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Persona\"\n}",
+              "raw": "{\n  \"userId\": 2,\n  \"displayName\": \"Extra\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl --request POST 'http://localhost:8080/users' --header 'Content-Type: application/json' --data-raw '{\n  \"userId\": 3,\n  \"displayName\": \"Ignacia Persona\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Persona Profile 3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 3,\n  \"displayName\": \"Extra Persona\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -306,7 +345,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"userId\": 2,\n  \"storeName\": \"Quandrix Store\",\n  \"location\": \"Santiago\",\n  \"description\": \"Singles MTG en Chile\"\n}",
+              "raw": "{\n  \"userId\": 1,\n  \"storeName\": \"Quandrix Store\",\n  \"location\": \"Santiago\",\n  \"description\": \"Singles MTG en Chile\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -334,7 +373,27 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/",
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/users/3'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User by Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/users/1",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -342,7 +401,7 @@
               "port": "8080",
               "path": [
                 "users",
-                ""
+                "1"
               ]
             },
             "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/users/3'"
@@ -668,7 +727,7 @@
       "name": "4. Listings",
       "item": [
         {
-          "name": "Futuro",
+          "name": "TODO",
           "item": [
             {
               "name": "Get Listings By Type",
@@ -1204,7 +1263,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/transactions/range?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59",
+              "raw": "http://localhost:8080/transactions/range?from=2025-01-01T00:00:00&to=2026-12-31T23:59:59",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1221,7 +1280,7 @@
                 },
                 {
                   "key": "to",
-                  "value": "2025-12-31T23:59:59"
+                  "value": "2026-12-31T23:59:59"
                 }
               ]
             },
@@ -1390,27 +1449,56 @@
       "name": "9. Notifications",
       "item": [
         {
-          "name": "Mark All Notifications As Read",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/notifications/user/3/read-all",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "notifications",
-                "user",
-                "3",
-                "read-all"
-              ]
+          "name": "TODO",
+          "item": [
+            {
+              "name": "Mark All Notifications As Read",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/user/3/read-all",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "user",
+                    "3",
+                    "read-all"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request PATCH --url 'http://localhost:8080/notifications/user/3/read-all'"
+              },
+              "response": []
             },
-            "description": "Generated from cURL: curl --request PATCH --url 'http://localhost:8080/notifications/user/3/read-all'"
-          },
-          "response": []
+            {
+              "name": "Get Unread Notification Count",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/notifications/user/3/unread/count",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "notifications",
+                    "user",
+                    "3",
+                    "unread",
+                    "count"
+                  ]
+                },
+                "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3/unread/count'"
+              },
+              "response": []
+            }
+          ]
         },
         {
           "name": "Mark Notification As Read",
@@ -1478,30 +1566,6 @@
             "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3/unread'"
           },
           "response": []
-        },
-        {
-          "name": "Get Unread Notification Count",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8080/notifications/user/3/unread/count",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8080",
-              "path": [
-                "notifications",
-                "user",
-                "3",
-                "unread",
-                "count"
-              ]
-            },
-            "description": "Generated from cURL: curl --request GET --url 'http://localhost:8080/notifications/user/3/unread/count'"
-          },
-          "response": []
         }
       ]
     },
@@ -1535,7 +1599,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/reports/sales?from=2025-01-01T00:00:00&to=2025-12-31T23:59:59",
+              "raw": "http://localhost:8080/reports/sales?from=2025-01-01T00:00:00&to=2026-12-31T23:59:59",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1552,7 +1616,7 @@
                 },
                 {
                   "key": "to",
-                  "value": "2025-12-31T23:59:59"
+                  "value": "2026-12-31T23:59:59"
                 }
               ]
             },
