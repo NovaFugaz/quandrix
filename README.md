@@ -69,7 +69,7 @@ Distributed under GPL2 licence.
 
 ## Contact
 
-- Ignacia Padilla - svt.nova@pm.me
+- Ignacia Padilla - svt.nova@proton.me
 - Elba Sánchez - elb.sanchezs@duocuc.cl
 
 ## Versión en Español
