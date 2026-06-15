@@ -1,4 +1,3 @@
-# Formato correcto para Spring Cloud Gateway 4.x con Boot 4.x
 spring:
   application:
     name: api-gateway
@@ -7,6 +6,78 @@ spring:
       server:
         webflux:
           routes:
+            # Rutas Swagger
+            - id: swagger-ms-auth
+              uri: lb://ms-auth
+              predicates:
+                - Path=/aggregate/ms-auth/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-auth/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-users
+              uri: lb://ms-users
+              predicates:
+                - Path=/aggregate/ms-users/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-users/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-catalog
+              uri: lb://ms-catalog
+              predicates:
+                - Path=/aggregate/ms-catalog/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-catalog/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-listings
+              uri: lb://ms-listings
+              predicates:
+                - Path=/aggregate/ms-listings/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-listings/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-orders
+              uri: lb://ms-orders
+              predicates:
+                - Path=/aggregate/ms-orders/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-orders/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-payments
+              uri: lb://ms-payments
+              predicates:
+                - Path=/aggregate/ms-payments/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-payments/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-transactions
+              uri: lb://ms-transactions
+              predicates:
+                - Path=/aggregate/ms-transactions/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-transactions/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-reviews
+              uri: lb://ms-reviews
+              predicates:
+                - Path=/aggregate/ms-reviews/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-reviews/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-notifications
+              uri: lb://ms-notifications
+              predicates:
+                - Path=/aggregate/ms-notifications/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-notifications/(?<segment>.*), /${segment}
+
+            - id: swagger-ms-reports
+              uri: lb://ms-reports
+              predicates:
+                - Path=/aggregate/ms-reports/v3/api-docs
+              filters:
+                - RewritePath=/aggregate/ms-reports/(?<segment>.*), /${segment}
+
+            # rutas de negocio
             - id: ms-auth
               uri: lb://ms-auth
               predicates:
@@ -73,3 +144,31 @@ management:
   endpoint:
     health:
       show-details: always
+
+# Springdoc
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: ms-auth
+        url: /aggregate/ms-auth/v3/api-docs
+      - name: ms-users
+        url: /aggregate/ms-users/v3/api-docs
+      - name: ms-catalog
+        url: /aggregate/ms-catalog/v3/api-docs
+      - name: ms-listings
+        url: /aggregate/ms-listings/v3/api-docs
+      - name: ms-orders
+        url: /aggregate/ms-orders/v3/api-docs
+      - name: ms-payments
+        url: /aggregate/ms-payments/v3/api-docs
+      - name: ms-transactions
+        url: /aggregate/ms-transactions/v3/api-docs
+      - name: ms-reviews
+        url: /aggregate/ms-reviews/v3/api-docs
+      - name: ms-notifications
+        url: /aggregate/ms-notifications/v3/api-docs
+      - name: ms-reports
+        url: /aggregate/ms-reports/v3/api-docs
+  api-docs:
+    enabled: true
