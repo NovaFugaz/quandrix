@@ -1,5 +1,6 @@
 package com.quandrix.ms_payments.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,13 +18,16 @@ import lombok.Setter;
 public class PaymentRequest {
 
     @NotNull(message = "El orderId es obligatorio")
+    @Schema(description = "Id de la orden", example = "1")
     private Long orderId;
 
     @NotNull(message = "El monto es obligatorio")
     @Min(value = 1, message = "El monto mínimo es 1")
+    @Schema(description = "Monto a pagar", example = "5000")
     private Long amount;
 
     @NotBlank(message = "El método de pago es obligatorio")
+    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD /{DEBIT_CARD, BANK_TRANSFER, CASH}")
     private String method;
 
 // Opción para los tests de defensa, permite forzar un fallo de pago sin depender de la aleatoriedad.
