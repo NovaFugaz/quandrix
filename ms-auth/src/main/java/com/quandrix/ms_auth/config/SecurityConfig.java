@@ -18,15 +18,23 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers(
+                    "/auth/**",
+                    "/doc/swagger-ui.html",
+                    "/doc/swagger-ui/**",
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
+                ).permitAll()
                 .anyRequest().authenticated()
             );
-            return http.build();
+
+        return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-    
 }

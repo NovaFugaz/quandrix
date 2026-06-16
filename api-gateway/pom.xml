@@ -52,6 +52,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Dependencia Swagger -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
