@@ -1,5 +1,6 @@
 package com.quandrix.ms_transactions.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Schema(description = "")
 public class TransactionRequest {
 
     @NotNull(message = "El orderId es obligatorio")
