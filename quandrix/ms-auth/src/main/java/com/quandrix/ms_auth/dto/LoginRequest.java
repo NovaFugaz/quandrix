@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Datos necesarios para Iniciar sesión")
+@Schema(title = "Login Request", description = "Datos necesarios para Iniciar sesión")
 public class LoginRequest {
     
     @Email

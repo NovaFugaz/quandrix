@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/catalog")
-@Tag(name = "Catalogo", description = "Operaciones relacionadas con el catalogo")
+@Tag(name = "Catálogo", description = "Operaciones relacionadas con el catalogo")
 public class CatalogController {
 
     private static final Logger log = LoggerFactory.getLogger(CatalogController.class);

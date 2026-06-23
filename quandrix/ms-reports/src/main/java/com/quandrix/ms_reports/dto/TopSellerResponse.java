@@ -6,7 +6,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@Schema(title = "Top Seller Response", description = "Respuesta del contenido del reporte de vendedores con mayores ventas")
 public class TopSellerResponse {
+    
     @Schema(description = "Id del vendedor", example = "1")
     private Long sellerId;
 

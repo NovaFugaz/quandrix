@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(title = "Notification Response", description = "Respuesta del contenido de una notificación")
 public class NotificationResponse {
 
     @Schema(description = "Id de la notificación", example = "1")
@@ -19,7 +20,8 @@ public class NotificationResponse {
     @Schema(description = "Id del usuario", example = "1")
     private Long userId;
 
-    @Schema(description = "Tipo de notificación", example = "NEW_ORDER / {PAYMENT_CONFIRMED, LISTING_SOLD, REVIEW_RECEIVED, ORDER_CANCELLED}")
+    @Schema(description = "Tipo de notificación", example = "NEW_ORDER", allowableValues = {"PAYMENT_CONFIRMED", "LISTING_SOLD",
+     "REVIEW_RECEIVED", "ORDER_CANCELLED"})
     private NotificationType type;
 
     @Schema(description = "Contenido de la notificación", example = "LISTING_SOLD: Su publicación ha sido vendida")

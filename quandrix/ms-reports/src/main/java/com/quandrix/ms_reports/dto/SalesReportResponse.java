@@ -8,6 +8,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@Schema(title = "Sales Report Response", description = "Respuesta del contenido de un reporte de ventas")
 public class SalesReportResponse {
     @Schema(description = "Fecha inicio del reporte", example = "2026-01-01T00:00:00")
     private LocalDateTime from;

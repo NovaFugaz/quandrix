@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "Datos necesarios para registrar un usuario")
+@Schema(title = "Register Request", description = "Datos necesarios para registrar un usuario")
 public class RegisterRequest {
     
     @Email(message = "Email inválido")
@@ -23,7 +23,7 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank(message = "El rol es obligatorio")
-    @Schema(description = "Rol del usuario", example = "ADMIN-PERSONA-TIENDA")
+    @Schema(description = "Rol del usuario", example = "PERSONA", allowableValues = {"USER", "ADMIN", "PERSONA"})
     private String role;
 
 

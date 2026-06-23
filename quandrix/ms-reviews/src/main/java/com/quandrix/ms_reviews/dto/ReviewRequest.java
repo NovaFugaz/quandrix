@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "Datos necesarios para la reseña")
+@Schema(title= "Review Request", description = "Datos necesarios para la reseña")
 public class ReviewRequest {
 
     @NotNull(message = "El reviewerId es obligatorio")

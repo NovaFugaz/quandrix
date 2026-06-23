@@ -6,8 +6,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-@Schema(description = "Entidad que representa una carta")
+@Schema(title = "Card Response", description = "Respuesta del contenido de una carta")
 public class CardResponse {
+
     @Schema(description = "Id único de la carta", example = "bd8fa8c8-7e1c-4f5d-a6d3-123456789abc")
     private String scryfallId;
 

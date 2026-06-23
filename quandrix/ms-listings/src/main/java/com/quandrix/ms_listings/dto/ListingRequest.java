@@ -7,28 +7,28 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "Objeto utilizado para crear/actualizar una publicación")
+@Schema(title = "Listings Request", description = "Datos necesarios ara crear/actualizar una publicación")
 public class ListingRequest {
 
     @NotNull(message = "El sellerId es obligatorio")
     @Schema(description = "Id vendedor", example = "1")
     private Long sellerId;
 
-    // El usuario proporciona nombre y set en lugar de scryfallId
     @NotBlank(message = "El nombre de la carta es obligatorio")
     @Schema(description = "Nombre de carta", example = "Black Lotus")
     private String cardName;
 
-    // Opcional — si no se provee toma la primera coincidencia
+    @Schema(description = "Código del set de la carta", example = "LEA")
     private String setCode;
 
     @NotNull(message = "La condición es obligatoria")
-    @Schema(description = "Conservación carta", example = "MINT")
+    @Schema(description = "Conservación carta", example = "MINT", allowableValues = {"MINT", "NEAR_MINT", "EXCELLENT", "GOOD", 
+    "LIGHT_PLAYED", "HEAVILY_PLAYED", "POOR", "DAMAGED"})
     private String condition;
 
     @Min(value = 100, message = "El precio mínimo es $100")
     @Positive(message = "El precio debe ser positivo")
-    @Schema(description = "Precio", example = "5000")
+    @Schema(description = "Precio unitario de la carta", example = "5000")
     private Long price;
 
     @NotNull(message = "La cantidad es obligatoria")

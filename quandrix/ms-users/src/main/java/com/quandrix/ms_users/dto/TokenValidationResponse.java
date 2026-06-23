@@ -6,12 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "Respuesta de validación de token JWT")
+@Schema(title = "Token Validation Response", description = "Respuesta de validación de token JWT")
 public class TokenValidationResponse {
     @Schema(description = "Correo electronico", example = "quandrix@gmail.com")
     private String email;
 
-    @Schema(description = "Rol del usuario", example = "ADMIN-PERSONA-TIENDA")
+    @Schema(description = "Rol del usuario", example = "ADMIN", allowableValues = {"ADMIN", "PERSONA", "TIENDA"})
     private String role;
 
     @Schema(description = "Indica si el token es válido", example = "true")

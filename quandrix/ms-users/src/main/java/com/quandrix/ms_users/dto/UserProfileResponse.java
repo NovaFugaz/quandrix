@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Getter
 @AllArgsConstructor
+@Schema(title = "User Profile Response", description = "Respuesta con los datos del perfil de un Usuario")
 public class UserProfileResponse {
 
     @Schema(description = "Id del perfil de tienda", example = "1")

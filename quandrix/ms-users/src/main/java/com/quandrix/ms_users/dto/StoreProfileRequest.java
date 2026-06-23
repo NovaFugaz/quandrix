@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(description = "Datos requeridos para crear o actualizar un perfil de tienda")
+@Schema(title = "Store Profile Request", description = "Datos necesarios para crear/actualizar un perfil de tienda")
 public class StoreProfileRequest {
 
     @NotNull(message = "El userId es obligatorio")

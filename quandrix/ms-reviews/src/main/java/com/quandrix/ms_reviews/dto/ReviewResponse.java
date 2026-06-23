@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-@Schema(title = "Respuesta de una reseña", description = "Respuesta con los datos de una reseña")
+@Schema(title = "Review Response", description = "Respuesta con el contenido de una reseña")
 public class ReviewResponse {
 
     @Schema(description = "Id de notificación", example = "1")
