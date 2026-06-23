@@ -15,6 +15,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(title = "Payment Request", description = "Datos necesarios para el pago")
 public class PaymentRequest {
 
     @NotNull(message = "El orderId es obligatorio")
@@ -27,7 +28,7 @@ public class PaymentRequest {
     private Long amount;
 
     @NotBlank(message = "El método de pago es obligatorio")
-    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD /{DEBIT_CARD, BANK_TRANSFER, CASH}")
+    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD", allowableValues = {"DEBIT_CARD", "BANK_TRANSFER", "CASH", "CREDIT_CARD"})
     private String method;
 
 // Opción para los tests de defensa, permite forzar un fallo de pago sin depender de la aleatoriedad.

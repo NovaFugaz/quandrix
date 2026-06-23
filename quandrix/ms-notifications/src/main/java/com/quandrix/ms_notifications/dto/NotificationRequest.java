@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(title = "Notifications request", description = "Datos necesarios para crear una notificación")
 public class NotificationRequest {
 
     @NotNull(message = "El userId es obligatorio")

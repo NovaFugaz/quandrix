@@ -8,6 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Schema(title = "Order Request", description = "Datos necesarios para generar una orden")
 public class OrderRequest {
 
     @NotNull(message = "El buyerId es obligatorio")
@@ -19,6 +20,6 @@ public class OrderRequest {
     private Long listingId;
 
     @NotBlank(message = "El método de pago es obligatorio")
-    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD /{DEBIT_CARD, BANK_TRANSFER, CASH}")
+    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD", allowableValues = {"DEBIT_CARD", "BANK_TRANSFER", "CASH", "CREDIT_CARD"})
     private String paymentMethod;
 }

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
+@Schema(title = "Order Response", description = "Respuesta del contenido de una orden")
 public class OrderResponse {
 
     @Schema(description = "Id orden de compra", example = "1")
@@ -26,10 +27,10 @@ public class OrderResponse {
     @Schema(description = "Monto a pagar", example = "5000")
     private Long amount;
 
-    @Schema(description = "Estado de la orden", example = "PENDING / {CONFIRMED, COMPLETED, CANCELLED}")
+    @Schema(description = "Estado de la orden", example = "PENDING", allowableValues = {"PENDING", "CONFIRMED", "COMPLETED", "CANCELLED"})
     private OrderStatus status;
 
-    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD /{DEBIT_CARD, BANK_TRANSFER, CASH}")
+    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD", allowableValues = {"DEBIT_CARD", "BANK_TRANSFER", "CASH", "CREDIT_CARD"})
     private String paymentMethod;
 
     @Schema(description = "Fecha de creación de la orden de compra", example = "2025-06-13T10:30:00")

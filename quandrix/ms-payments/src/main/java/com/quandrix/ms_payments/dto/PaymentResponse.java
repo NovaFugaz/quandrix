@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
+@Schema(title = "Payment Response", description = "Respuesta del contenido de un pago")
 public class PaymentResponse {
 
     @Schema(description = "Id del pago", example = "1")
@@ -21,10 +22,10 @@ public class PaymentResponse {
     @Schema(description = "Monto a pagar", example = "5000")
     private Long amount;
 
-    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD /{DEBIT_CARD, BANK_TRANSFER, CASH}")
+    @Schema(description = "Metodo para pagar", example = "CREDIT_CARD", allowableValues = {"DEBIT_CARD", "BANK_TRANSFER", "CASH", "CREDIT_CARD"})
     private PaymentMethod method;
 
-    @Schema(description = "Estado del pago", example = "PENDING /{APPROVED, REJECTED}")
+    @Schema(description = "Estado del pago", example = "PENDING", allowableValues = {"PENDING", "CONFIRMED", "COMPLETED", "CANCELLED"})
     private PaymentStatus status;
 
     @Schema(description = "Fecha de procesamiento del pago", example = "2026-06-12T14:30:00")
