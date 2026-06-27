@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD: quandrix123
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./quandrix/docs/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     healthcheck:
@@ -20,7 +20,9 @@ services:
       retries: 5
 
   eureka-server:
-    build: ./eureka-server
+    build: 
+      context: .
+      dockerfile: quandrix/eureka-server/Dockerfile
     container_name: quandrix-eureka
     mem_limit: 256m
     cpus: 0.5
@@ -31,7 +33,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   api-gateway:
-    build: ./api-gateway
+    build: 
+      context: .
+      dockerfile: quandrix/api-gateway/Dockerfile
     container_name: quandrix-gateway
     mem_limit: 384m
     cpus: 0.5
@@ -45,7 +49,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=60
 
   ms-auth:
-    build: ./ms-auth
+    build: 
+      context: .
+      dockerfile: quandrix/ms-auth/Dockerfile
     container_name: quandrix-auth
     mem_limit: 512m
     cpus: 0.5
@@ -66,7 +72,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-users:
-    build: ./ms-users
+    build: 
+      context: .
+      dockerfile: quandrix/ms-users/Dockerfile
     container_name: quandrix-users
     mem_limit: 512m
     cpus: 0.5
@@ -87,7 +95,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-catalog:
-    build: ./ms-catalog
+    build: 
+      context: .
+      dockerfile: quandrix/ms-catalog/Dockerfile
     container_name: quandrix-catalog
     mem_limit: 512m
     cpus: 0.5
@@ -106,7 +116,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-listings:
-    build: ./ms-listings
+    build: 
+      context: .
+      dockerfile: quandrix/ms-listings/Dockerfile
     container_name: quandrix-listings
     mem_limit: 512m
     cpus: 0.5
@@ -129,7 +141,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-payments:
-    build: ./ms-payments
+    build: 
+      context: .
+      dockerfile: quandrix/ms-payments/Dockerfile
     container_name: quandrix-payments
     mem_limit: 512m
     cpus: 0.5
@@ -148,7 +162,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-orders:
-    build: ./ms-orders
+    build: 
+      context: .
+      dockerfile: quandrix/ms-orders/Dockerfile
     container_name: quandrix-orders
     mem_limit: 512m
     cpus: 0.5
@@ -171,7 +187,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-transactions:
-    build: ./ms-transactions
+    build: 
+      context: .
+      dockerfile: quandrix/ms-transactions/Dockerfile
     container_name: quandrix-transactions
     mem_limit: 512m
     cpus: 0.5
@@ -190,7 +208,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-reviews:
-    build: ./ms-reviews
+    build: 
+      context: .
+      dockerfile: quandrix/ms-reviews/Dockerfile
     container_name: quandrix-reviews
     mem_limit: 512m
     cpus: 0.5
@@ -211,7 +231,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-notifications:
-    build: ./ms-notifications
+    build: 
+      context: .
+      dockerfile: quandrix/ms-notifications/Dockerfile
     container_name: quandrix-notifications
     mem_limit: 512m
     cpus: 0.5
@@ -230,7 +252,9 @@ services:
       - JAVA_OPTS=-XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=50
 
   ms-reports:
-    build: ./ms-reports
+    build: 
+      context: .
+      dockerfile: quandrix/ms-reports/Dockerfile
     container_name: quandrix-reports
     mem_limit: 384m
     cpus: 0.5
