@@ -4,7 +4,7 @@
 
 ## About this project
 
-Quandrix it's what it is. A backend for a Magic The Gathering singles store, marketplace style. It allows stores and people to sell and publish cards of the aforementioned trading card game. 
+Quandrix is a backend for a Magic The Gathering singles store, marketplace style. It allows stores and people to sell and publish cards of the aforementioned trading card game. 
 The system is divided in the following list of decoupled microservices:
 
 
@@ -12,7 +12,7 @@ The system is divided in the following list of decoupled microservices:
 |---|---|---|
 | eureka-server | 8761 | Registry and discovery of services |
 | api-gateway | 8080 | Unique entrypoint to the system |
-| ms-auth | 8081 | Authentication, JWT and role gestion |
+| ms-auth | 8081 | Authentication, JWT and role management |
 | ms-users | 8082 | People & Stores profiles |
 | ms-catalog | 8083 | MtG cards catalogue (via Scryfall API) |
 | ms-listings | 8084 | Listing of singles currently at sale |
@@ -26,10 +26,12 @@ The system is divided in the following list of decoupled microservices:
 ### Cómo levantar quandrix
 
 - Make sure to have docker installed and running. You may need docker buildx dependency to build it.
-- Once your ready:
-`git clone https://github.com/NovaFugaz/quandrix.git`
-`docker compose build` (you may need to run it through sudo/doas) 
-`docker compose up -d` (so it runs on background)
+- Once you are ready:
+  ```bash
+  git clone https://github.com/NovaFugaz/quandrix.git
+  docker compose build # you may need to run it through sudo/doas
+  docker compose up -d # so it runs on background
+  ```
 - To check the health of all microservices:
 `docker ps -a` (every container should say Up)
 
@@ -58,12 +60,12 @@ The system is divided in the following list of decoupled microservices:
 - GET  /catalog/search?name=   → search card
 - GET  /catalog/{scryfallId}   → get card via ID
 - POST /listings               → add listing
-- POST /orders                 → buying and item
+- POST /orders                 → buying an item
 - GET  /payments/order/{id}    → verify payment
 - POST /reviews                → add review
 - GET  /reports/summary        → see reports (ADMIN)
 
-## Licence
+## License
 
 Distributed under GPL2 licence.
 
@@ -98,10 +100,12 @@ El sistema está dividido en microservicios desacoplados descritos en la siguien
 ### Cómo levantar quandrix
 
 - Asegúrate de tener Docker instalado y su servicio corriendo, además de la dependencia necesaria para compilar, buildx.
-- Una vez esté listo eso
-`git clone https://github.com/NovaFugaz/quandrix.git`
-`docker compose build` (puede requerir elevación de privilegios en Linux) 
-`docker compose up -d` (para que corra en segundo plano)
+- Una vez esté listo eso:
+  ```bash
+  git clone https://github.com/NovaFugaz/quandrix.git
+  docker compose build # puede requerir elevación de privilegios en Linux 
+  docker compose up -d # para que corra en segundo plano
+  ```
 - Para revisar el estado de los servicios:
 `docker ps -a` (todo servicio debería decir Up)
 
@@ -142,4 +146,3 @@ Distribuido bajo licencia GPL2.
 
 - Ignacia Padilla - svt.nova@pm.me
 - Elba Sánchez - elb.sanchezs@duocuc.cl
-
