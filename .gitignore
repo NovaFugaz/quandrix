@@ -39,3 +39,4 @@ application-local.properties
 application-local.yml
 .fake
 ms-listings/TODO
+/.myollamaenhancer/duckdb/knowledge_base.duckdb
