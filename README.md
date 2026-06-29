@@ -3,13 +3,14 @@
 ### Enlaces de Descarga
 
 - [Versión Nativa (.jar + .bat)](https://drive.google.com/file/d/1_k_eGVD9PZ3zuils3LHj52pD5YmESzPI/view?usp=sharing)
-- [Versión DOCKER (.jar + .bat)](...)
-- [Versión Linux (.jar + .sh)](...)
+- [Versión DOCKER (.jar + .bat)](https://drive.google.com/file/d/1hdMvt0krOdhRTFr_MqIm1kxESmdzmXwQ/view?usp=sharing)
+
+- [Versión DOCKER Linux (.sh)](https://drive.google.com/file/d/1WvpCwAVc8RxymdsUzH0ane8yc2Y3HLFn/view?usp=sharing)
+- [Versión Nativa Linux (.sh)](https://drive.google.com/file/d/1JkddRe9XBwzTMk-UPARXvZyyZuZ9f-wr/view?usp=sharing)
+
 - [Video demostración evaluación 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
 - [Video demostración evaluación 3](...)
 - [Distribución de tareas](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
-
-(Abrir los links: ctrl + click izq)
 
 ### Objetivo del proyecto
 
@@ -184,6 +185,24 @@ El objetivo de las pruebas es verificar:
 - Respuestas esperadas de los componentes principales.
 - Manejo de errores.
 
+## Estado de pruebas unitarias
+
+| Microservicio       | Tests Controller | Tests Service | Total | Estado |
+|----------------------|:----------------:|:--------------:|:-----:|:------:|
+| ms-auth              | 6                 | 8 + 5 (Jwt)     | 19    |   OK   |
+| ms-catalog           | 8                 | 10 + 7 (Scryfall) | 25  |   OK   |
+| ms-listings          | 18                | 24              | 42    |   OK   |
+| ms-notifications     | 13                | 16              | 29    |   OK   |
+| ms-reports           | 9                 | 12              | 21    |   OK   |
+| ms-orders            | 13                | 18              | 31    |   OK   |
+| ms-payments          | 7                 | 7               | 14    |   OK   |
+| ms-reviews           | 13                | 15              | 28    |   OK   |
+| ms-transactions      | 13                | 10              | 23    |   OK   |
+| ms-users             | 20                | 18              | 38    |   OK   |
+| **Total**            |                   |                 | **270** |   OK   |
+
+> Todos los tests fueron ejecutados vía `mvn test` en cada módulo, sin fallas ni errores (`Failures: 0, Errors: 0`).
+
 ### Licencia
 
 Distribuido bajo licencia GPL2.
@@ -199,12 +218,15 @@ Distribuido bajo licencia GPL2.
 ### Download links
 
 - [Native version (.jar + .bat)](https://drive.google.com/file/d/1TddXEAvHPBh276X3h0RdY6OtWUPe0GJX/view?usp=sharing)
-- [DOCKER version (.jar + .bat)]()
+- [DOCKER version (.jar + .bat)](https://drive.google.com/file/d/1hdMvt0krOdhRTFr_MqIm1kxESmdzmXwQ/view?usp=sharing)
+
+- [DOCKER version linux (.sh)](https://drive.google.com/file/d/1WvpCwAVc8RxymdsUzH0ane8yc2Y3HLFn/view?usp=sharing)
+- [Native version Linux (.sh)](https://drive.google.com/file/d/1JkddRe9XBwzTMk-UPARXvZyyZuZ9f-wr/view?usp=sharing)
+
+
 - [Video demonstration evaluation 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
 - [Video demonstration evaluation 3](...)
 - [Task distribution](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
-
-(Open the links: ctrl + left click)
 
 ### Project Objective
 
@@ -376,6 +398,24 @@ The purpose of the tests is to verify:
 - Data validations.
 - Expected responses from the main components.
 - Error handling.
+
+## Unit tests summary
+
+| Microservice     | Tests Controller | Tests Service | Total | Status |
+|------------------|:----------------:|:--------------:|:-----:|:------:|
+| ms-auth          | 6                 | 8 + 5 (Jwt)     | 19    |   OK   |
+| ms-catalog       | 8                 | 10 + 7 (Scryfall) | 25  |   OK   |
+| ms-listings      | 18                | 24              | 42    |   OK   |
+| ms-notifications | 13                | 16              | 29    |   OK   |
+| ms-reports       | 9                 | 12              | 21    |   OK   |
+| ms-orders        | 13                | 18              | 31    |   OK   |
+| ms-payments      | 7                 | 7               | 14    |   OK   |
+| ms-reviews       | 13                | 15              | 28    |   OK   |
+| ms-transactions  | 13                | 10              | 23    |   OK   |
+| ms-users         | 20                | 18              | 38    |   OK   |
+| **Total**        |                   |                 | **270** |   OK   |
+
+> All the tests were run through `mvn test`, and there were no failures nor errors. (`Failures: 0, Errors: 0`).
 
 ## License
 
