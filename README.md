@@ -10,7 +10,7 @@
 - [Versión DOCKER (.jar + .bat + .sh)](https://drive.google.com/file/d/11xppZ9lZ2Pw7hqcP9cJeZfXnFMI9613H/view?usp=drive_link)
 
 - [Video demostración evaluación 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
-- [Video demostración evaluación 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link) (Duración vide evaluación 3: 17:04 / Video con subtitulos)
+- [Video demostración evaluación 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link) (Duración video evaluación 3: 17:04 / Video con subtitulos)
 - [Distribución de tareas](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
 
 ### Objetivo del proyecto
@@ -227,7 +227,7 @@ Distribuido bajo licencia GPL2.
 - [DOCKER version (.jar + .bat + .sh](https://drive.google.com/file/d/11xppZ9lZ2Pw7hqcP9cJeZfXnFMI9613H/view?usp=drive_link)
 
 - [Video demonstration evaluation 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
-- [Video demonstration evaluation 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link) (Duration of Assessment 3 video: 17:04 / Video with subtitles)
+- [Video demonstration evaluation 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link) (Video 3 duration: 17:04 / Subtitles included)
 - [Task distribution](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
 
 ### Project Objective
