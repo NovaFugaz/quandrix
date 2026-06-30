@@ -2,14 +2,15 @@
 
 ### Enlaces de Descarga
 
-- [Versión Nativa (.jar + .bat)](https://drive.google.com/file/d/1_k_eGVD9PZ3zuils3LHj52pD5YmESzPI/view?usp=sharing)
-- [Versión DOCKER (.jar + .bat)](https://drive.google.com/file/d/1hdMvt0krOdhRTFr_MqIm1kxESmdzmXwQ/view?usp=sharing)
+(AVISO: .sh son los .bat para linux; ejecutar según sistema operativo)
+- .sh --> linux
+- .bat --> windows
 
-- [Versión DOCKER Linux (.sh)](https://drive.google.com/file/d/1WvpCwAVc8RxymdsUzH0ane8yc2Y3HLFn/view?usp=sharing)
-- [Versión Nativa Linux (.sh)](https://drive.google.com/file/d/1JkddRe9XBwzTMk-UPARXvZyyZuZ9f-wr/view?usp=sharing)
+- [Versión Nativa (.jar + .bat + .sh)](https://drive.google.com/file/d/1rs17aFx2bk2Wyl6iErvoUOmHUfL_A4bA/view?usp=sharing)
+- [Versión DOCKER (.jar + .bat + .sh](https://drive.google.com/file/d/11xppZ9lZ2Pw7hqcP9cJeZfXnFMI9613H/view?usp=drive_link)
 
 - [Video demostración evaluación 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
-- [Video demostración evaluación 3](...)
+- [Video demostración evaluación 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link)
 - [Distribución de tareas](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
 
 ### Objetivo del proyecto
@@ -69,6 +70,7 @@ QUANDRIX-PARENT/
     |   ├── Documentación - FullStack - proyecto quandrix.pdf    (se necesita extención)
     |   ├── init.sql  (base de datos del proyecto)
     |   └── Quandrix.postman_collection.json
+    |   └── Reporte_Quandrix_Testing.pdf
     |
     ├── eureka-server/
     |
@@ -217,15 +219,15 @@ Distribuido bajo licencia GPL2.
 
 ### Download links
 
-- [Native version (.jar + .bat)](https://drive.google.com/file/d/1TddXEAvHPBh276X3h0RdY6OtWUPe0GJX/view?usp=sharing)
-- [DOCKER version (.jar + .bat)](https://drive.google.com/file/d/1hdMvt0krOdhRTFr_MqIm1kxESmdzmXwQ/view?usp=sharing)
+(NOTICE: .sh files are the Linux equivalent of .bat files; run them according to your operating system)
+- .sh --> linux
+- .bat --> windows
 
-- [DOCKER version linux (.sh)](https://drive.google.com/file/d/1WvpCwAVc8RxymdsUzH0ane8yc2Y3HLFn/view?usp=sharing)
-- [Native version Linux (.sh)](https://drive.google.com/file/d/1JkddRe9XBwzTMk-UPARXvZyyZuZ9f-wr/view?usp=sharing)
-
+- [Native version (.jar + .bat + .sh)](https://drive.google.com/file/d/1rs17aFx2bk2Wyl6iErvoUOmHUfL_A4bA/view?usp=sharing)
+- [DOCKER version (.jar + .bat + .sh](https://drive.google.com/file/d/11xppZ9lZ2Pw7hqcP9cJeZfXnFMI9613H/view?usp=drive_link)
 
 - [Video demonstration evaluation 2](https://drive.google.com/file/d/1yZsia_4ayFE48x2Pzcam-_ry-Dglk2uD/view?usp=drive)
-- [Video demonstration evaluation 3](...)
+- [Video demonstration evaluation 3](https://drive.google.com/file/d/1LK7w4oCcXsy1X0RyQixAap_afPVodKyr/view?usp=drive_link)
 - [Task distribution](https://docs.google.com/spreadsheets/d/15T5wIh-iSbPMr31C7P7r6oVz_bJo9_TP-5yKWIl3luU/edit?usp=sharing)
 
 ### Project Objective
@@ -284,6 +286,7 @@ QUANDRIX-PARENT/
     |   ├── Documentación - FullStack - proyecto quandrix.pdf    (An extension is needed - vscode pdf)
     |   ├── init.sql  (project database)
     |   └── Quandrix.postman_collection.json
+    |   └── Reporte_Quandrix_Testing.pdf
     |
     ├── eureka-server/
     |
