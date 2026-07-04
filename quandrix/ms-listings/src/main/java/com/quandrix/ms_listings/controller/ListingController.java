@@ -89,9 +89,7 @@ public class ListingController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200",description = "Publicaciones encontradas con exito", 
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = ListingResponse.class)))
-        ),
-    @ApiResponse(responseCode = "404",description = "No existen publicaciones de ese vendedor")
-    })
+        )})
     public ResponseEntity<List<ListingResponse>> getBySeller(
             @Parameter(description = "Id del vendedor", required = true, example = "1")
             @PathVariable Long sellerId) {

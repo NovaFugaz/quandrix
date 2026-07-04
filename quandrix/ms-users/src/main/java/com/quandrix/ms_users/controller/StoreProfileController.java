@@ -72,9 +72,7 @@ public class StoreProfileController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Perfiles de tienda encontrados con exito",
             content = @Content(mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = StoreProfileResponse.class)))
-        ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron perfiles de tienda"),
+                array = @ArraySchema(schema = @Schema(implementation = StoreProfileResponse.class)))),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<StoreProfileResponse>> getAll() {

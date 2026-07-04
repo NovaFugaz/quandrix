@@ -57,7 +57,6 @@ public class ReviewController {
         @ApiResponse(responseCode = "200", description = "Reseñas de vendedor encontradas con exito",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ReviewResponse.class)))
         ),
-        @ApiResponse(responseCode = "404", description = "No se encontro ninguna reseña para ese vendedor"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<ReviewResponse>> getBySeller(

@@ -76,7 +76,6 @@ public class TransactionController {
         @ApiResponse(responseCode = "200", description = "Transacciones encontradas del comprador con exito",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TransactionResponse.class)))
         ),
-        @ApiResponse(responseCode = "404", description = "No se pudo encontrar transacciones de ese comprador"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<TransactionResponse>> getByBuyer(
@@ -92,7 +91,6 @@ public class TransactionController {
         @ApiResponse(responseCode = "200", description = "Transacciones encontradas del vendedor con exito",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TransactionResponse.class)))
         ),
-        @ApiResponse(responseCode = "404", description = "No se pudo encontrar transacciones de ese vendedor"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<TransactionResponse>> getBySeller(
@@ -109,8 +107,6 @@ public class TransactionController {
         @ApiResponse(responseCode = "200", description = "Transacciones de ese periodo encontradas con exito",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TransactionResponse.class)))
         ),
-        @ApiResponse(responseCode = "400", description = "Parametros de las fechas inválidas"),
-        @ApiResponse(responseCode = "404", description = "No se encontraron transacciones en ese periodo"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<TransactionResponse>> getByDateRange(

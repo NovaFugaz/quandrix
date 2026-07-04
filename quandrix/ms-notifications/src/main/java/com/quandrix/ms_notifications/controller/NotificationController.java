@@ -61,7 +61,6 @@ public class NotificationController {
                         content = @Content(mediaType = "application/json",
                         array = @ArraySchema(schema = @Schema(implementation = NotificationResponse.class)))
                 ),
-                @ApiResponse(responseCode = "404", description = "No se encontraron notificaciones de ese usuario"),
                 @ApiResponse(responseCode = "500", description = "Error interno del servidor")
         })
         public ResponseEntity<List<NotificationResponse>> getByUser(
@@ -79,7 +78,6 @@ public class NotificationController {
                         content = @Content(mediaType = "application/json",
                         array = @ArraySchema(schema = @Schema(implementation = NotificationResponse.class)))
                 ),
-                @ApiResponse(responseCode = "404", description = "No se encontraron notificaciones no leídas"),
                 @ApiResponse(responseCode = "500", description = "Error interno del servidor")
         })
         public ResponseEntity<List<NotificationResponse>> getUnread(

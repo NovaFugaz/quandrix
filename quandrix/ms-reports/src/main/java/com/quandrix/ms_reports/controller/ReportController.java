@@ -47,7 +47,6 @@ public class ReportController {
             content = @Content(mediaType = "application/json", 
             schema = @Schema(implementation = SalesReportResponse.class))
         ),
-        @ApiResponse(responseCode = "400", description = "Fechas invalidas"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<SalesReportResponse> getSalesReport(
@@ -68,7 +67,6 @@ public class ReportController {
             content = @Content(mediaType = "application/json",
             array = @ArraySchema(schema = @Schema(implementation = TopSellerResponse.class)))
         ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron top vendedores"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<TopSellerResponse>> getTopSellers(
@@ -86,7 +84,6 @@ public class ReportController {
             content = @Content(mediaType = "application/json",
             array = @ArraySchema(schema = @Schema(implementation = TopCardResponse.class)))
         ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron top vendedores"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<TopCardResponse>> getTopCards(
