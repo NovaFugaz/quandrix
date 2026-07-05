@@ -71,9 +71,7 @@ public class UserProfileController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Perfiles de usuarios encontrados con exito",
             content = @Content(mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = UserProfileResponse.class)))
-        ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron perfiles de usuario"),
+                array = @ArraySchema(schema = @Schema(implementation = UserProfileResponse.class)))),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<UserProfileResponse>> getAll() {

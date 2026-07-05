@@ -72,9 +72,7 @@ public class OrderController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Ordenes del comprador encontradas con exito",
             content = @Content(mediaType = "application/json", 
-            array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class)))
-        ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron ordenes de ese comprador"),
+            array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class)))),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<OrderResponse>> getByBuyer(
@@ -89,9 +87,7 @@ public class OrderController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Ordenes del vendedor encontradas con exito",
             content = @Content(mediaType = "application/json", 
-            array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class)))
-        ),
-        @ApiResponse(responseCode = "404", description = "No se encontraron ordenes de ese vendedor"),
+            array = @ArraySchema(schema = @Schema(implementation = OrderResponse.class)))),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<OrderResponse>> getBySeller(

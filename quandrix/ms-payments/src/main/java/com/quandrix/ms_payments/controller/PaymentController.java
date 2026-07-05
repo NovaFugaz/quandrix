@@ -39,6 +39,7 @@ public class PaymentController {
         ),
         @ApiResponse(responseCode = "400", description = "Datos del pago inválidos"),
         @ApiResponse(responseCode = "404", description = "No se encontro la orden asociada"),
+        @ApiResponse(responseCode = "422", description = "No se pudo procesar el pago (orden ya pagada o monto inválido)"),
         @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<PaymentResponse> process(

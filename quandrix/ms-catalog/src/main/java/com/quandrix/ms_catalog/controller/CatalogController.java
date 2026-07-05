@@ -69,7 +69,6 @@ public class CatalogController {
             @ApiResponse(responseCode = "200", description = "Sets obtenidos exitosamente", 
                 content = @Content(mediaType = "application/json", 
                 array = @ArraySchema(schema = @Schema(implementation = CardResponse.class)))),
-            @ApiResponse(responseCode = "404", description = "No se encontraron sets"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     public ResponseEntity<List<CardResponse>> getAllSets() {
